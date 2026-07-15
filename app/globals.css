@@ -29,35 +29,47 @@ a {
   text-decoration: none;
 }
 
-/* Shooting stars — fall down-right (meteor head + trail) */
+/*
+  Shooting stars — position via top/left only (always falls: endTop > startTop).
+  Inner body is rotated to align the trail with the path.
+*/
 .shooting-star {
   position: absolute;
-  display: block;
-  width: var(--star-length, 120px);
-  height: 2px;
-  border-radius: 9999px;
-  /* Tail (left) → head (right), aligned with fall direction */
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(139, 92, 246, 0.05) 25%,
-    rgba(196, 181, 253, 0.45) 70%,
-    rgba(255, 255, 255, 0.95) 100%
-  );
-  box-shadow:
-    0 0 6px 1px rgba(167, 139, 250, 0.35),
-    0 0 12px 2px rgba(139, 92, 246, 0.12);
-  transform-origin: center center;
-  will-change: transform, opacity;
-  animation: shooting-star-fly var(--star-duration, 1.3s)
+  top: var(--star-start-top, 20%);
+  left: var(--star-start-left, 0%);
+  width: 0;
+  height: 0;
+  opacity: 0;
+  animation: shooting-star-move var(--star-duration, 1.4s)
     cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-/* Bright meteor head (leading edge = right end of the bar) */
-.shooting-star::after {
+.shooting-star__body {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--star-length, 120px);
+  height: 2px;
+  border-radius: 9999px;
+  /* Tail behind (left) → head leading (right) along fall */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(139, 92, 246, 0.08) 30%,
+    rgba(196, 181, 253, 0.55) 72%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  box-shadow:
+    0 0 6px 1px rgba(167, 139, 250, 0.4),
+    0 0 14px 2px rgba(139, 92, 246, 0.15);
+  transform: rotate(var(--star-angle, 35deg));
+  transform-origin: left center;
+}
+
+.shooting-star__body::after {
   content: '';
   position: absolute;
-  right: -1px;
+  right: -2px;
   top: 50%;
   width: 5px;
   height: 5px;
@@ -65,51 +77,47 @@ a {
   background: radial-gradient(
     circle,
     #fff 0%,
-    #e9d5ff 45%,
-    rgba(167, 139, 250, 0.4) 70%,
+    #e9d5ff 50%,
+    rgba(167, 139, 250, 0.35) 75%,
     transparent 100%
   );
   box-shadow:
-    0 0 8px 3px rgba(255, 255, 255, 0.55),
-    0 0 16px 6px rgba(167, 139, 250, 0.35);
+    0 0 8px 3px rgba(255, 255, 255, 0.6),
+    0 0 18px 6px rgba(167, 139, 250, 0.4);
   transform: translateY(-50%);
 }
 
-.shooting-star::before {
+.shooting-star__body::before {
   content: '';
   position: absolute;
-  inset: -2px 0;
+  inset: -3px 0;
   border-radius: inherit;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(167, 139, 250, 0.12) 60%,
-    rgba(255, 255, 255, 0.2) 100%
+    rgba(167, 139, 250, 0.15) 65%,
+    rgba(255, 255, 255, 0.25) 100%
   );
   filter: blur(2px);
   pointer-events: none;
 }
 
-/*
-  Explicit screen-space motion: +X right, +Y down.
-  Rotate only orients the trail; translate always falls down-right.
-*/
-@keyframes shooting-star-fly {
+/* top increases = down the screen; left increases = to the right */
+@keyframes shooting-star-move {
   0% {
-    transform: translate3d(0, 0, 0) rotate(var(--star-angle, 32deg)) scaleX(0.4);
+    top: var(--star-start-top);
+    left: var(--star-start-left);
     opacity: 0;
   }
   8% {
-    opacity: var(--star-opacity, 0.75);
-    transform: translate3d(3vw, 2vh, 0) rotate(var(--star-angle, 32deg))
-      scaleX(1);
+    opacity: var(--star-opacity, 0.8);
   }
-  72% {
-    opacity: var(--star-opacity, 0.75);
+  78% {
+    opacity: var(--star-opacity, 0.8);
   }
   100% {
-    transform: translate3d(var(--star-dx, 70vw), var(--star-dy, 50vh), 0)
-      rotate(var(--star-angle, 32deg)) scaleX(0.9);
+    top: var(--star-end-top);
+    left: var(--star-end-left);
     opacity: 0;
   }
 }

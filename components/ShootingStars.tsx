@@ -5,45 +5,43 @@ import { prefersReducedMotion } from '@/lib/motion'
 
 type Star = {
   id: number
-  top: number
-  left: number
+  startTop: number
+  startLeft: number
+  endTop: number
+  endLeft: number
   duration: number
   length: number
-  /** Horizontal travel (vw) — always to the right */
-  dx: number
-  /** Vertical travel (vh) — always downward */
-  dy: number
   opacity: number
-  /** CSS rotate so the trail aligns with the fall path */
   angle: number
 }
 
 let nextId = 0
 
 function makeStar(): Star {
-  // Fall down-right: positive dx + positive dy (CSS Y grows downward)
-  const dx = 55 + Math.random() * 40 // vw
-  const dy = 40 + Math.random() * 45 // vh
-  // angle of velocity vector in CSS degrees (clockwise from +X)
-  const angle = (Math.atan2(dy, dx) * 180) / Math.PI
+  // Start below the header band, left half of the sky
+  const startTop = 12 + Math.random() * 32
+  const startLeft = -8 + Math.random() * 35
+  // Always fall down-right in % of viewport ( unambiguous with top/left )
+  const endTop = startTop + 35 + Math.random() * 40
+  const endLeft = startLeft + 45 + Math.random() * 45
+  const dTop = endTop - startTop
+  const dLeft = endLeft - startLeft
+  // CSS rotate: positive = clockwise; y grows downward → atan2(dTop, dLeft)
+  const angle = (Math.atan2(dTop, dLeft) * 180) / Math.PI
 
   return {
     id: nextId++,
-    // Start upper-left so the path crosses the sky
-    top: -5 + Math.random() * 28,
-    left: -10 + Math.random() * 40,
-    duration: 1.2 + Math.random() * 0.7,
-    length: 100 + Math.random() * 80,
-    dx,
-    dy,
-    opacity: 0.6 + Math.random() * 0.3,
+    startTop,
+    startLeft,
+    endTop,
+    endLeft,
+    duration: 1.25 + Math.random() * 0.7,
+    length: 100 + Math.random() * 70,
+    opacity: 0.65 + Math.random() * 0.25,
     angle,
   }
 }
 
-/**
- * Occasional shooting stars falling down-right (meteor trail + head).
- */
 export function ShootingStars() {
   const [enabled, setEnabled] = useState(false)
   const [stars, setStars] = useState<Star[]>([])
@@ -59,7 +57,7 @@ export function ShootingStars() {
       const fresh = Array.from({ length: batch }, () => makeStar())
       setStars((prev) => [...prev, ...fresh].slice(-8))
       for (const s of fresh) {
-        const life = (s.duration + 0.3) * 1000
+        const life = (s.duration + 0.35) * 1000
         setTimeout(() => {
           if (cancelled) return
           setStars((prev) => prev.filter((x) => x.id !== s.id))
@@ -71,7 +69,7 @@ export function ShootingStars() {
       const wait = 3500 + Math.random() * 6500
       timeout = setTimeout(() => {
         if (cancelled) return
-        spawn(Math.random() < 0.15 ? 2 : 1)
+        spawn(Math.random() < 0.12 ? 2 : 1)
         schedule()
       }, wait)
     }
@@ -80,7 +78,7 @@ export function ShootingStars() {
       if (cancelled) return
       spawn(1)
       schedule()
-    }, 2000)
+    }, 1800)
 
     return () => {
       cancelled = true
@@ -101,17 +99,19 @@ export function ShootingStars() {
           className="shooting-star"
           style={
             {
-              top: `${star.top}%`,
-              left: `${star.left}%`,
+              ['--star-start-top' as string]: `${star.startTop}%`,
+              ['--star-start-left' as string]: `${star.startLeft}%`,
+              ['--star-end-top' as string]: `${star.endTop}%`,
+              ['--star-end-left' as string]: `${star.endLeft}%`,
               ['--star-length' as string]: `${star.length}px`,
-              ['--star-dx' as string]: `${star.dx}vw`,
-              ['--star-dy' as string]: `${star.dy}vh`,
               ['--star-opacity' as string]: String(star.opacity),
               ['--star-angle' as string]: `${star.angle}deg`,
               ['--star-duration' as string]: `${star.duration}s`,
             } as CSSProperties
           }
-        />
+        >
+          <span className="shooting-star__body" />
+        </span>
       ))}
     </div>
   )
