@@ -6,6 +6,7 @@ import { MethodSteps } from '@/components/MethodSteps'
 import { OssList } from '@/components/OssList'
 import { ProofBar } from '@/components/ProofBar'
 import { FaqAccordion } from '@/components/FaqAccordion'
+import { ScopePlayground } from '@/components/ScopePlayground'
 import { ScrollReveal } from '@/components/ScrollReveal'
 import { SectionHeading } from '@/components/SectionHeading'
 import { ServicesGrid } from '@/components/ServicesGrid'
@@ -133,6 +134,17 @@ export default function Home() {
           <div data-reveal-child>
             <OssList repos={site.ossRepos} />
           </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal id="escopo" variant="up">
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+          <SectionHeading
+            label="Playground"
+            title="Monte um rascunho de escopo"
+            description="Escreva o que precisa. O site só sugere quando tem confiança — senão pede esclarecimento e nunca inventa produto."
+          />
+          <ScopePlayground whatsappDigits={digits} />
         </section>
       </ScrollReveal>
 

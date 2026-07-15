@@ -31,6 +31,10 @@ describe('SiteHeader', () => {
       'href',
       '/cases',
     )
+    expect(screen.getByRole('link', { name: /^escopo$/i })).toHaveAttribute(
+      'href',
+      '/#escopo',
+    )
     expect(screen.getByRole('link', { name: /^faq$/i })).toHaveAttribute(
       'href',
       '/#faq',

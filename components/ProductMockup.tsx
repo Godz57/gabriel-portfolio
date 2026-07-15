@@ -256,14 +256,18 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
           <div className="pointer-events-none absolute bottom-4 left-1/2 z-10 w-[min(92%,420px)] -translate-x-1/2 lg:bottom-5">
             <button
               type="button"
-              onClick={onFocusShell}
+              onClick={() => {
+                onFocusShell?.()
+                const el = document.getElementById('escopo')
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
               className="pointer-events-auto flex w-full items-center gap-2 rounded-2xl border border-violet-500/30 bg-zinc-950/90 px-3 py-2.5 text-left shadow-2xl shadow-violet-950/50 backdrop-blur-md transition-colors hover:border-violet-400/50"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 text-zinc-500">
                 +
               </span>
               <span className="min-w-0 flex-1 truncate text-sm text-zinc-500">
-                Descreva o que quer explorar… (ou digite help)
+                Digite help no shell · ou role até Escopo
               </span>
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white shadow-lg shadow-violet-600/40">
                 →
