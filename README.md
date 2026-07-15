@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Gabriel Almeida
 
-## Getting Started
+Portfolio pessoal de **Gabriel Almeida**: engenharia de agentes CLI/LLM, automação real e sistemas com loop em produção.
 
-First, run the development server:
+**One-liner:** do skill ao bot em produção — agent tooling, Playwright + LLM e entregas web com método (brainstorm → plan → TDD → verify-done).
+
+## Como rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm test         # vitest
+npm run build    # build de produção
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opcional: copie `.env.example` para `.env.local` e preencha as variáveis.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Conteúdo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Caminho | Função |
+|---------|--------|
+| `content/site.ts` | Config do site (nome, tagline, proof bar, OSS, método, contatos) |
+| `content/cases/*.md` | Cases em Markdown + frontmatter (slug, title, stack, etc.) |
 
-## Learn More
+Cases atuais: `agent-tooling`, `wpp-grok`, `arc-web`.
 
-To learn more about Next.js, take a look at the following resources:
+> **Privacidade:** o case `wpp-grok` é sanitizado — sem nomes reais de leads, telefones de clientes ou PII de conversas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Conecte o repositório na [Vercel](https://vercel.com).
+2. Defina as env vars:
+   - `NEXT_PUBLIC_SITE_URL` — URL canônica do site (ex.: `https://seu-dominio.vercel.app`)
+   - `NEXT_PUBLIC_WHATSAPP` — (opcional) número em formato internacional sem `+` (ex.: `5561999999999`)
 
-## Deploy on Vercel
+## Design e plano
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Documentação de design e plano de implementação:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [`docs/superpowers/specs/2026-07-15-portfolio-design.md`](docs/superpowers/specs/2026-07-15-portfolio-design.md)
+- [`docs/superpowers/plans/2026-07-15-portfolio.md`](docs/superpowers/plans/2026-07-15-portfolio.md)
+
+## Stack
+
+Next.js (App Router) · TypeScript · Tailwind CSS · Vitest · Zod · gray-matter / react-markdown
