@@ -57,7 +57,7 @@ export default async function CasePage({ params }: CasePageProps) {
               href={doc.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-violet-400 underline underline-offset-4 hover:text-violet-300"
+              className="text-sm font-medium text-brand-fg underline underline-offset-4 hover:text-brand-fg-soft"
             >
               Ver repositório
             </a>

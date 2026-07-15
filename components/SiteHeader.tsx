@@ -17,9 +17,9 @@ export function SiteHeader({ name }: SiteHeaderProps) {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 shadow-lg shadow-black/40 backdrop-blur-xl sm:px-6">
         <Link
           href="/"
-          className="flex items-center gap-2 text-sm font-semibold tracking-tight text-white transition-colors hover:text-violet-400"
+          className="flex items-center gap-2 text-sm font-semibold tracking-tight text-white transition-colors hover:text-brand-fg"
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600/20 text-violet-400 ring-1 ring-violet-500/30">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand/20 text-brand-fg ring-1 ring-brand/30">
             G
           </span>
           <span className="hidden sm:inline">{name}</span>
@@ -47,7 +47,7 @@ export function SiteHeader({ name }: SiteHeaderProps) {
           </span>
           <Link
             href="/contato"
-            className="rounded-full bg-violet-600 px-3.5 py-1.5 text-xs font-medium text-white shadow-lg shadow-violet-600/25 transition-colors hover:bg-violet-500 sm:px-4 sm:text-sm"
+            className="rounded-full bg-brand px-3.5 py-1.5 text-xs font-medium text-white shadow-lg shadow-brand/25 transition-colors hover:bg-brand-hover sm:px-4 sm:text-sm"
           >
             Fale comigo
           </Link>

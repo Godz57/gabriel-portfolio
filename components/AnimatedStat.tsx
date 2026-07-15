@@ -60,7 +60,7 @@ export function AnimatedStat({ value, label }: AnimatedStatProps) {
 
   return (
     <div ref={ref} className="flex flex-col items-center gap-1">
-      <span className="text-xl font-semibold text-violet-400 sm:text-2xl">
+      <span className="text-xl font-semibold text-brand-fg sm:text-2xl">
         {display}
       </span>
       <span className="text-xs text-zinc-400 sm:text-sm">{label}</span>

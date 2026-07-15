@@ -114,7 +114,7 @@ export function CommandPalette({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-4 right-4 z-40 hidden items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/90 px-3 py-2 text-xs text-zinc-400 shadow-lg backdrop-blur sm:flex hover:border-violet-500/50 hover:text-violet-300"
+        className="fixed bottom-4 right-4 z-40 hidden items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/90 px-3 py-2 text-xs text-zinc-400 shadow-lg backdrop-blur sm:flex hover:border-brand/50 hover:text-brand-fg-soft"
         aria-label="Abrir command palette"
       >
         <span>Buscar</span>
@@ -134,7 +134,7 @@ export function CommandPalette({
       onClick={() => setOpen(false)}
     >
       <div
-        className="w-full max-w-lg overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 shadow-2xl shadow-violet-950/50 ring-1 ring-violet-500/20"
+        className="w-full max-w-lg overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 shadow-2xl shadow-brand/50 ring-1 ring-brand/20"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="border-b border-zinc-800 px-3 py-2">
@@ -162,7 +162,7 @@ export function CommandPalette({
                   onMouseEnter={() => setActive(i)}
                   className={`flex w-full flex-col items-start px-4 py-2.5 text-left text-sm transition-colors ${
                     i === active
-                      ? 'bg-violet-600/20 text-violet-100'
+                      ? 'bg-brand/20 text-brand-fg'
                       : 'text-zinc-300 hover:bg-zinc-900'
                   }`}
                 >

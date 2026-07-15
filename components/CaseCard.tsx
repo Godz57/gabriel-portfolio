@@ -11,17 +11,17 @@ export function CaseCard({ slug, title, summary, stack }: CaseCardProps) {
   return (
     <Link
       href={`/cases/${slug}`}
-      className="glass-panel group flex flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/40 hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.45)] motion-reduce:transform-none"
+      className="glass-panel group flex flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_0_40px_-10px_rgba(41,0,38,0.65)] motion-reduce:transform-none"
     >
       <div
         aria-hidden
-        className="mb-5 flex h-28 items-center justify-center rounded-xl border border-violet-500/10 bg-gradient-to-br from-violet-600/15 via-transparent to-transparent"
+        className="mb-5 flex h-28 items-center justify-center rounded-xl border border-brand/10 bg-gradient-to-br from-brand/15 via-transparent to-transparent"
       >
-        <span className="font-mono text-3xl text-violet-500/40 transition-colors group-hover:text-violet-400/70">
+        <span className="font-mono text-3xl text-brand-fg-soft/40 transition-colors group-hover:text-brand-fg/70">
           {'</>'}
         </span>
       </div>
-      <h3 className="text-lg font-semibold tracking-tight text-white group-hover:text-violet-200">
+      <h3 className="text-lg font-semibold tracking-tight text-white group-hover:text-brand-fg">
         {title}
       </h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">

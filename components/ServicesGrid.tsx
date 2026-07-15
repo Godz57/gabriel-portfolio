@@ -75,12 +75,12 @@ export function ServicesGrid({ services = DEFAULT_SERVICES }: ServicesGridProps)
       {services.map((s) => (
         <li
           key={s.title}
-          className="glass-panel group flex flex-col rounded-2xl p-5 transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/40 motion-reduce:transform-none"
+          className="glass-panel group flex flex-col rounded-2xl p-5 transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 motion-reduce:transform-none"
         >
-          <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-600/15 font-mono text-sm text-violet-300 transition-colors group-hover:border-violet-400/40 group-hover:bg-violet-600/25">
+          <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-brand/20 bg-brand/15 font-mono text-sm text-brand-fg-soft transition-colors group-hover:border-brand-fg-soft/40 group-hover:bg-brand/25">
             {s.icon}
           </div>
-          <h3 className="text-base font-semibold tracking-tight text-white group-hover:text-violet-100">
+          <h3 className="text-base font-semibold tracking-tight text-white group-hover:text-brand-fg">
             {s.title}
           </h3>
           <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">
