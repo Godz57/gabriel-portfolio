@@ -17,11 +17,29 @@ vi.mock('next/link', () => ({
   ),
 }))
 
+vi.mock('next/image', () => ({
+  default: ({
+    alt,
+    src,
+    ...props
+  }: {
+    alt: string
+    src: string
+  }) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img alt={alt} src={src} {...props} />
+  ),
+}))
+
+vi.mock('next/font/google', () => ({
+  Outfit: () => ({ className: 'font-outfit-mock' }),
+}))
+
 describe('SiteHeader', () => {
-  it('links to main sections', () => {
-    render(<SiteHeader name="Gabriel Almeida" />)
+  it('shows ARC WEB logo home link and main sections', () => {
+    render(<SiteHeader />)
     expect(
-      screen.getByRole('link', { name: /gabriel almeida/i }),
+      screen.getByRole('link', { name: /arc web/i }),
     ).toHaveAttribute('href', '/')
     expect(screen.getByRole('link', { name: /^serviços$/i })).toHaveAttribute(
       'href',

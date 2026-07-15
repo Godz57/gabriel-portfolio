@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" fill="none" role="img" aria-label="ARC WEB">
+  <!-- Official lockup: mark + wordmark (from brand 25) -->
+  <g transform="translate(4, 8) scale(0.84)">
+    <path
+      d="M28 78 L50 20 L62 48"
+      stroke="#ffffff"
+      stroke-width="3.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path d="M38 58 L46 52" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M58 44 L72 36" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M58 52 L72 78" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+    <circle cx="52" cy="50" r="7.5" fill="#4db8ff"/>
+  </g>
+  <text
+    x="100"
+    y="62"
+    fill="#ffffff"
+    font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
+    font-size="34"
+    font-weight="400"
+    letter-spacing="0.22em"
+  >ARC WEB</text>
+</svg>

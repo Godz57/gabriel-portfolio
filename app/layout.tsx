@@ -43,9 +43,9 @@ export default function RootLayout({
     >
       <body className="relative flex min-h-full flex-col bg-[#05060a] text-zinc-100">
         <CursorGlow />
-        <SiteHeader name={site.name} />
+        <SiteHeader />
         <main className="relative z-10 flex-1">{children}</main>
-        <SiteFooter name={site.name} githubUrl={site.github} />
+        <SiteFooter githubUrl={site.github} />
         <CommandPaletteHost />
       </body>
     </html>
