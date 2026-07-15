@@ -8,8 +8,9 @@ type Star = {
   top: number
   left: number
   duration: number
-  delay: number
   length: number
+  /** Distance along the trail axis (vw) — full cross-screen flight */
+  travelVw: number
   opacity: number
   angle: number
 }
@@ -19,20 +20,20 @@ let nextId = 0
 function makeStar(): Star {
   return {
     id: nextId++,
-    // Start somewhere in the upper half / left-right spread
-    top: 5 + Math.random() * 45,
-    left: 10 + Math.random() * 70,
-    duration: 0.7 + Math.random() * 0.6,
-    delay: 0,
-    length: 48 + Math.random() * 56,
-    opacity: 0.25 + Math.random() * 0.25,
-    angle: 28 + Math.random() * 12,
+    // Enter from off / near top-left so the path crosses the viewport
+    top: -8 + Math.random() * 35,
+    left: -15 + Math.random() * 45,
+    duration: 1.15 + Math.random() * 0.75,
+    length: 90 + Math.random() * 90,
+    travelVw: 70 + Math.random() * 45,
+    opacity: 0.55 + Math.random() * 0.35,
+    angle: 22 + Math.random() * 18,
   }
 }
 
 /**
- * Occasional subtle shooting stars across the sky background.
- * Desktop + mobile; disabled when prefers-reduced-motion.
+ * Occasional shooting stars that cross the sky (long trail + bright head).
+ * Disabled when prefers-reduced-motion.
  */
 export function ShootingStars() {
   const [enabled, setEnabled] = useState(false)
@@ -45,36 +46,32 @@ export function ShootingStars() {
     let cancelled = false
     let timeout: ReturnType<typeof setTimeout>
 
+    function spawn(batch = 1) {
+      const fresh = Array.from({ length: batch }, () => makeStar())
+      setStars((prev) => [...prev, ...fresh].slice(-8))
+      for (const s of fresh) {
+        const life = (s.duration + 0.25) * 1000
+        setTimeout(() => {
+          if (cancelled) return
+          setStars((prev) => prev.filter((x) => x.id !== s.id))
+        }, life)
+      }
+    }
+
     function schedule() {
-      // 4–11s between showers; sometimes 1 star, rarely 2
-      const wait = 4000 + Math.random() * 7000
+      const wait = 3500 + Math.random() * 6500
       timeout = setTimeout(() => {
         if (cancelled) return
-        const batch = Math.random() < 0.18 ? 2 : 1
-        const fresh = Array.from({ length: batch }, () => makeStar())
-        setStars((prev) => [...prev, ...fresh].slice(-6))
-        // Remove after animation ends
-        for (const s of fresh) {
-          const life = (s.duration + 0.15) * 1000
-          setTimeout(() => {
-            if (cancelled) return
-            setStars((prev) => prev.filter((x) => x.id !== s.id))
-          }, life)
-        }
+        spawn(Math.random() < 0.15 ? 2 : 1)
         schedule()
       }, wait)
     }
 
-    // First star after a short calm intro
     timeout = setTimeout(() => {
       if (cancelled) return
-      const s = makeStar()
-      setStars([s])
-      setTimeout(() => {
-        if (!cancelled) setStars((prev) => prev.filter((x) => x.id !== s.id))
-      }, (s.duration + 0.15) * 1000)
+      spawn(1)
       schedule()
-    }, 2500)
+    }, 2000)
 
     return () => {
       cancelled = true
@@ -92,13 +89,14 @@ export function ShootingStars() {
       {stars.map((star) => (
         <span
           key={star.id}
-          className="shooting-star absolute block"
+          className="shooting-star"
           style={
             {
               top: `${star.top}%`,
               left: `${star.left}%`,
-              width: `${star.length}px`,
-              opacity: star.opacity,
+              ['--star-length' as string]: `${star.length}px`,
+              ['--star-travel' as string]: `${star.travelVw}vw`,
+              ['--star-opacity' as string]: String(star.opacity),
               ['--star-angle' as string]: `${star.angle}deg`,
               ['--star-duration' as string]: `${star.duration}s`,
             } as CSSProperties
