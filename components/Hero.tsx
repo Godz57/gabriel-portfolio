@@ -19,15 +19,15 @@ export function Hero({
       {/* Ambient orbs */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-[100px]"
+        className="pointer-events-none absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/20 blur-[100px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[55%] h-40 w-40 -translate-x-1/2 rounded-full bg-brand-fg/30 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-[55%] h-40 w-40 -translate-x-1/2 rounded-full bg-violet-400/30 blur-3xl"
       />
 
       <div className="relative">
-        <p className="mb-6 inline-flex items-center rounded-full border border-brand/40 bg-brand/30 px-3.5 py-1 text-xs font-medium tracking-wide text-brand-fg">
+        <p className="mb-6 inline-flex items-center rounded-full border border-violet-500/25 bg-violet-500/10 px-3.5 py-1 text-xs font-medium tracking-wide text-violet-300">
           CLI · LLM · AUTOMACÃO REAL
         </p>
 
@@ -45,7 +45,7 @@ export function Hero({
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/cases"
-            className="inline-flex items-center rounded-full bg-brand px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-brand/30 transition-colors hover:bg-brand-hover"
+            className="inline-flex items-center rounded-full bg-violet-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500"
           >
             Ver cases
           </Link>
@@ -53,7 +53,7 @@ export function Hero({
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-brand/40 hover:text-white"
+            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-violet-500/40 hover:text-white"
           >
             GitHub
           </a>
@@ -64,7 +64,7 @@ export function Hero({
             <div className="relative">
               <div
                 aria-hidden
-                className="absolute -inset-3 rounded-full bg-brand-hover/20 blur-xl"
+                className="absolute -inset-3 rounded-full bg-violet-500/20 blur-xl"
               />
               <Image
                 src={imageSrc}
@@ -72,7 +72,7 @@ export function Hero({
                 width={96}
                 height={96}
                 priority
-                className="relative h-20 w-20 rounded-full border border-white/10 object-cover shadow-xl ring-2 ring-brand/30 sm:h-24 sm:w-24"
+                className="relative h-20 w-20 rounded-full border border-white/10 object-cover shadow-xl ring-2 ring-violet-500/30 sm:h-24 sm:w-24"
               />
             </div>
           </div>

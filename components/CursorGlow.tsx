@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { prefersReducedMotion } from '@/lib/motion'
 
-/** Desktop-only brand spotlight that follows the pointer. */
+/** Desktop-only violet spotlight that follows the pointer. */
 export function CursorGlow() {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [on, setOn] = useState(false)
@@ -27,7 +27,7 @@ export function CursorGlow() {
       aria-hidden
       className="pointer-events-none fixed inset-0 z-30 mix-blend-screen"
       style={{
-        background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(41, 0, 38, 0.35), transparent 45%)`,
+        background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(139, 92, 246, 0.14), transparent 45%)`,
       }}
     />
   )

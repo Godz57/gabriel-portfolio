@@ -3,27 +3,16 @@
 :root {
   --background: #05060a;
   --foreground: #f4f4f5;
-  /* Brand — pedido do usuário */
-  --brand: #290026;
-  --brand-rgb: 41, 0, 38;
-  --brand-hover: #3f0a38;
-  --accent: #290026;
-  --accent-soft: rgba(41, 0, 38, 0.45);
-  --glass: rgba(12, 6, 12, 0.7);
-  --glass-border: rgba(41, 0, 38, 0.55);
-  /* Texto legível no dark (mesma família do #290026) */
-  --brand-fg: #d4a0cc;
-  --brand-fg-soft: #b87aab;
+  --accent: #8b5cf6;
+  --accent-soft: rgba(139, 92, 246, 0.15);
+  --glass: rgba(15, 12, 24, 0.65);
+  --glass-border: rgba(139, 92, 246, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-brand: #290026;
-  --color-brand-hover: #3f0a38;
-  --color-brand-fg: #d4a0cc;
-  --color-brand-fg-soft: #b87aab;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -33,22 +22,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   background-image:
-    radial-gradient(
-      ellipse 90% 60% at 50% -10%,
-      rgba(41, 0, 38, 0.55),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 50% 40% at 0% 40%,
-      rgba(41, 0, 38, 0.35),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse 50% 40% at 100% 60%,
-      rgba(41, 0, 38, 0.3),
-      transparent 50%
-    ),
-    linear-gradient(165deg, transparent 40%, rgba(20, 4, 18, 0.55) 100%);
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(109, 40, 217, 0.22), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 0% 40%, rgba(91, 33, 182, 0.14), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 100% 60%, rgba(139, 92, 246, 0.12), transparent 50%),
+    linear-gradient(165deg, transparent 40%, rgba(24, 16, 40, 0.45) 100%);
   background-attachment: fixed;
   min-height: 100%;
 }
@@ -63,10 +40,10 @@ body::before {
     115deg,
     transparent 0%,
     transparent 38%,
-    rgba(41, 0, 38, 0.12) 42%,
+    rgba(139, 92, 246, 0.05) 42%,
     transparent 48%,
     transparent 62%,
-    rgba(41, 0, 38, 0.1) 68%,
+    rgba(109, 40, 217, 0.06) 68%,
     transparent 75%
   );
   opacity: 0.9;
@@ -80,19 +57,19 @@ a {
 .glass-panel {
   background: linear-gradient(
     160deg,
-    rgba(32, 12, 30, 0.82) 0%,
-    rgba(10, 4, 10, 0.9) 100%
+    rgba(28, 22, 42, 0.78) 0%,
+    rgba(10, 8, 18, 0.88) 100%
   );
   border: 1px solid var(--glass-border);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-    0 24px 80px -20px rgba(0, 0, 0, 0.75),
-    0 0 60px -16px rgba(41, 0, 38, 0.55);
+    0 24px 80px -20px rgba(0, 0, 0, 0.7),
+    0 0 60px -20px rgba(139, 92, 246, 0.28);
   backdrop-filter: blur(16px);
 }
 
 .section-label {
-  color: var(--brand-fg);
+  color: #a78bfa;
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.02em;

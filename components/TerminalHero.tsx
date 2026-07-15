@@ -192,7 +192,7 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
             key={`${i}-${line.text.slice(0, 12)}`}
             className={
               line.kind === 'input'
-                ? 'text-brand-fg-soft'
+                ? 'text-violet-300'
                 : line.kind === 'system'
                   ? 'text-zinc-500'
                   : 'text-zinc-300'
@@ -200,7 +200,7 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
           >
             {line.kind === 'input' ? (
               <>
-                <span className="text-brand-fg-soft">❯ </span>
+                <span className="text-violet-500">❯ </span>
                 {line.text}
               </>
             ) : (
@@ -210,7 +210,7 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
         ))}
         {booted ? (
           <form onSubmit={onSubmit} className="mt-1 flex items-center gap-2">
-            <span className="text-brand-fg-soft">❯</span>
+            <span className="text-violet-500">❯</span>
             <input
               ref={inputRef}
               value={value}

@@ -41,16 +41,16 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
     <section className="relative mx-auto max-w-6xl px-4 pb-8 sm:px-6 sm:pb-12">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[75%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-[90px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[75%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/20 blur-[90px]"
       />
       {/* Floating particles */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-[18%] z-20 flex -translate-x-1/2 gap-2"
       >
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-fg/80" />
-        <span className="mt-2 h-1 w-1 animate-pulse rounded-full bg-brand-fg-soft/50 [animation-delay:200ms]" />
-        <span className="h-1 w-1 animate-pulse rounded-full bg-brand-fg/40 [animation-delay:400ms]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-violet-400/80" />
+        <span className="mt-2 h-1 w-1 animate-pulse rounded-full bg-violet-300/50 [animation-delay:200ms]" />
+        <span className="h-1 w-1 animate-pulse rounded-full bg-fuchsia-400/40 [animation-delay:400ms]" />
       </div>
 
       <div className="relative">
@@ -62,14 +62,14 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                 key={tab}
                 className={
                   i === 0
-                    ? 'rounded-md bg-brand/25 px-2.5 py-1 font-medium text-brand-fg'
+                    ? 'rounded-md bg-violet-600/25 px-2.5 py-1 font-medium text-violet-200'
                     : 'rounded-md px-2.5 py-1 text-zinc-500'
                 }
               >
                 {tab}
               </span>
             ))}
-            <span className="ml-auto rounded-md bg-brand px-2.5 py-1 text-[11px] font-medium text-white">
+            <span className="ml-auto rounded-md bg-violet-600 px-2.5 py-1 text-[11px] font-medium text-white">
               Deploy
             </span>
           </div>
@@ -86,14 +86,14 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                   oi! aqui é o Rafael, da ARC WEB. que tipo de site você tem em
                   mente?
                 </div>
-                <div className="self-end max-w-[90%] rounded-xl rounded-tr-sm bg-brand/30 px-3 py-2 text-brand-fg">
+                <div className="self-end max-w-[90%] rounded-xl rounded-tr-sm bg-violet-600/30 px-3 py-2 text-violet-100">
                   Landing page com WhatsApp e portfolio.
                 </div>
                 <div className="self-start max-w-[95%] rounded-xl rounded-tl-sm border border-white/5 bg-zinc-900/80 px-3 py-2 text-zinc-300">
                   perfeito. vou montar o fluxo: hero → cases → contato. ok?
                 </div>
-                <div className="mt-auto flex items-center gap-2 rounded-lg border border-brand/20 bg-brand-hover/10 px-2 py-1.5 text-[10px] text-brand-fg-soft">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-fg" />
+                <div className="mt-auto flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-500/10 px-2 py-1.5 text-[10px] text-violet-300">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-violet-400" />
                   loop: humanize → send · TDD green
                 </div>
               </div>
@@ -110,7 +110,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                     key={f.name}
                     className={
                       f.active
-                        ? 'rounded-md bg-brand/20 px-2 py-1 text-brand-fg'
+                        ? 'rounded-md bg-violet-600/20 px-2 py-1 text-violet-200'
                         : f.kind === 'dir'
                           ? 'px-2 py-1 text-zinc-500'
                           : 'rounded-md px-2 py-1 text-zinc-400'
@@ -125,7 +125,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
             {/* Code + shell */}
             <div className="flex min-h-0 flex-col lg:col-span-7">
               <div className="flex items-center gap-2 border-b border-white/5 bg-zinc-950/30 px-3 py-1.5 text-[11px]">
-                <span className="rounded-t border border-b-0 border-white/10 bg-zinc-900 px-2 py-1 text-brand-fg">
+                <span className="rounded-t border border-b-0 border-white/10 bg-zinc-900 px-2 py-1 text-violet-200">
                   humanizer.ts
                 </span>
                 <span className="px-2 py-1 text-zinc-600">loop.ts</span>
@@ -142,7 +142,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                         line.tone === 'cmt'
                           ? 'text-zinc-600'
                           : line.tone === 'kw'
-                            ? 'text-brand-fg-soft/90'
+                            ? 'text-violet-300/90'
                             : 'text-zinc-300'
                       }
                     >
@@ -167,7 +167,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
             <button
               type="button"
               onClick={onFocusShell}
-              className="pointer-events-auto flex w-full items-center gap-2 rounded-2xl border border-brand/30 bg-zinc-950/90 px-3 py-2.5 text-left shadow-2xl shadow-brand/50 backdrop-blur-md transition-colors hover:border-brand-fg-soft/50"
+              className="pointer-events-auto flex w-full items-center gap-2 rounded-2xl border border-violet-500/30 bg-zinc-950/90 px-3 py-2.5 text-left shadow-2xl shadow-violet-950/50 backdrop-blur-md transition-colors hover:border-violet-400/50"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 text-zinc-500">
                 +
@@ -175,7 +175,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
               <span className="min-w-0 flex-1 truncate text-sm text-zinc-500">
                 Descreva o que quer explorar… (ou digite help)
               </span>
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-white shadow-lg shadow-brand/40">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white shadow-lg shadow-violet-600/40">
                 →
               </span>
             </button>
