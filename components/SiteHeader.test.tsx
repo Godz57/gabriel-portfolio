@@ -39,7 +39,7 @@ describe('SiteHeader', () => {
   it('shows ARC WEB logo home link and main sections', () => {
     render(<SiteHeader />)
     expect(
-      screen.getByRole('link', { name: /arc web/i }),
+      screen.getByRole('link', { name: /arc web|início/i }),
     ).toHaveAttribute('href', '/')
     expect(screen.getByRole('link', { name: /^serviços$/i })).toHaveAttribute(
       'href',

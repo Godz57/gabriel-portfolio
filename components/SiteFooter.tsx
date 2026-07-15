@@ -17,7 +17,7 @@ export function SiteFooter({ githubUrl }: SiteFooterProps) {
             className="group inline-flex"
             aria-label="ARC WEB — início"
           >
-            <ArcLogo variant="lockup" size={26} />
+            <ArcLogo variant="mark" size={28} />
           </Link>
           <p className="mt-3 text-sm text-zinc-500">
             © {year} ARC WEB · sites, agentes e automação

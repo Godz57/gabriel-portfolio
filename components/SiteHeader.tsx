@@ -18,7 +18,7 @@ export function SiteHeader() {
           className="group flex shrink-0 items-center transition-opacity hover:opacity-90"
           aria-label="ARC WEB — início"
         >
-          <ArcLogo variant="lockup" size={30} priority />
+          <ArcLogo variant="mark" size={32} priority />
         </Link>
         <nav
           aria-label="Principal"
