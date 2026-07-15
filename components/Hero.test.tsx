@@ -32,18 +32,21 @@ vi.mock('next/image', () => ({
 }))
 
 describe('Hero', () => {
-  it('shows name, tagline and CTAs', () => {
+  it('shows identity, value prop and CTAs', () => {
     render(
       <Hero
         name="Gabriel Almeida"
-        tagline="Engenharia de agentes CLI/LLM."
+        tagline="Landing pages, sites e agentes CLI/LLM."
         githubUrl="https://github.com/Godz57"
       />,
     )
+    expect(screen.getByText(/gabriel almeida/i)).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Gabriel Almeida',
+      /sites, agentes e automações/i,
     )
-    expect(screen.getByText(/engenharia de agentes/i)).toBeInTheDocument()
+    expect(
+      screen.getByText(/landing pages, sites e agentes/i),
+    ).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /ver cases/i })).toHaveAttribute(
       'href',
       '/cases',

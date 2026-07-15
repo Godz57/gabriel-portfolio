@@ -25,7 +25,6 @@ export function Hero({
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-[48%] h-48 w-48 -translate-x-1/2 rounded-full bg-violet-400/25 blur-3xl"
       />
-      {/* Side vignette */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#05060a] to-transparent sm:w-40"
@@ -35,19 +34,40 @@ export function Hero({
         className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#05060a] to-transparent sm:w-40"
       />
 
-      <div className="relative mx-auto max-w-4xl">
-        <p className="mb-6 inline-flex items-center rounded-full border border-violet-500/25 bg-violet-500/10 px-3.5 py-1 text-xs font-medium tracking-wide text-violet-300">
-          CLI · LLM · AUTOMACÃO REAL
+      <div className="relative mx-auto max-w-3xl">
+        {imageSrc ? (
+          <div className="mb-6 flex justify-center">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute -inset-2 rounded-full bg-violet-500/20 blur-xl"
+              />
+              <Image
+                src={imageSrc}
+                alt={name}
+                width={88}
+                height={88}
+                priority
+                className="relative h-16 w-16 rounded-full border border-white/10 object-cover shadow-xl ring-2 ring-violet-500/30 sm:h-20 sm:w-20"
+              />
+            </div>
+          </div>
+        ) : null}
+
+        <p className="text-sm font-medium text-zinc-400 sm:text-base">
+          {name}
+          <span className="text-zinc-600"> · </span>
+          <span className="text-violet-300/90">ARC WEB</span>
         </p>
 
-        <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.08]">
-          {name}
-          <span className="mt-2 block bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
-            Agentes e sistemas em produção
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-5xl sm:leading-[1.12] md:text-[3.25rem]">
+          Sites, agentes e automações
+          <span className="mt-1 block bg-gradient-to-b from-zinc-100 to-zinc-500 bg-clip-text text-transparent">
+            do skill ao bot em produção
           </span>
         </h1>
 
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
           {tagline}
         </p>
 
@@ -67,25 +87,6 @@ export function Hero({
             GitHub
           </a>
         </div>
-
-        {imageSrc ? (
-          <div className="mt-10 flex justify-center">
-            <div className="relative">
-              <div
-                aria-hidden
-                className="absolute -inset-3 rounded-full bg-violet-500/20 blur-xl"
-              />
-              <Image
-                src={imageSrc}
-                alt={name}
-                width={96}
-                height={96}
-                priority
-                className="relative h-20 w-20 rounded-full border border-white/10 object-cover shadow-xl ring-2 ring-violet-500/30 sm:h-24 sm:w-24"
-              />
-            </div>
-          </div>
-        ) : null}
       </div>
     </section>
   )

@@ -3,7 +3,7 @@ import type { SiteConfig } from '@/lib/schemas'
 export const siteConfig = {
   name: 'Gabriel Almeida',
   tagline:
-    'Engenharia de agentes CLI/LLM e automação real: do skill ao bot em produção.',
+    'Landing pages, sites e sistemas com agentes CLI/LLM — com método, TDD e resultado em produção.',
   github: 'https://github.com/Godz57',
   linkedin: undefined,
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP,
