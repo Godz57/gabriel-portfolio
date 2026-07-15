@@ -1,0 +1,65 @@
+import type { Metadata } from 'next'
+import { MethodSteps } from '@/components/MethodSteps'
+import { getSiteConfig } from '@/lib/content'
+
+export const metadata: Metadata = {
+  title: 'Stack',
+  description:
+    'Método de trabalho e stack: TypeScript, Next.js, Playwright, Vitest e agents CLI/LLM.',
+}
+
+const stackItems = [
+  'TypeScript',
+  'Next.js',
+  'Playwright',
+  'Vitest',
+  'Agents CLI / LLM',
+] as const
+
+export default function StackPage() {
+  const site = getSiteConfig()
+
+  return (
+    <div>
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
+        <h1 className="text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
+          Stack e método
+        </h1>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+          Ferramentas e processo que uso para entregar automação, agentes e
+          sistemas com loop em produção — do design aprovado à evidência de
+          pronto.
+        </p>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 sm:pb-20">
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
+          Stack principal
+        </h2>
+        <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {stackItems.map((item) => (
+            <li
+              key={item}
+              className="rounded-xl border border-zinc-800 bg-zinc-900/40 px-5 py-4 text-sm font-medium text-zinc-200"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 sm:pb-20">
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
+          Método
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
+          O mesmo fluxo dos kits de agentes: brainstorm → plan → TDD →
+          verify-done.
+        </p>
+        <div className="mt-8">
+          <MethodSteps steps={site.methodSteps} />
+        </div>
+      </section>
+    </div>
+  )
+}
