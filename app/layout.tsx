@@ -15,13 +15,16 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'Gabriel Almeida',
     template: '%s · Gabriel Almeida',
   },
   description:
-    'Engenharia de agentes CLI/LLM e automação real: do skill ao bot em produção.',
+    'Portfólio de Gabriel Almeida — engenharia de agentes CLI/LLM, automação real e toolkits open source: do skill ao bot em produção.',
 }
 
 export default function RootLayout({
