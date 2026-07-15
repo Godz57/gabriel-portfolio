@@ -29,14 +29,14 @@ a {
   text-decoration: none;
 }
 
-/* Shooting stars — long trail + bright head, fly across the viewport */
+/* Shooting stars — fall down-right (meteor head + trail) */
 .shooting-star {
   position: absolute;
   display: block;
   width: var(--star-length, 120px);
   height: 2px;
   border-radius: 9999px;
-  /* Trail: transparent tail → violet → white at the head (right) */
+  /* Tail (left) → head (right), aligned with fall direction */
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
@@ -47,13 +47,13 @@ a {
   box-shadow:
     0 0 6px 1px rgba(167, 139, 250, 0.35),
     0 0 12px 2px rgba(139, 92, 246, 0.12);
-  transform-origin: right center;
+  transform-origin: center center;
   will-change: transform, opacity;
-  animation: shooting-star-fly var(--star-duration, 1.3s) cubic-bezier(0.22, 0.61, 0.36, 1)
-    forwards;
+  animation: shooting-star-fly var(--star-duration, 1.3s)
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-/* Bright meteor head */
+/* Bright meteor head (leading edge = right end of the bar) */
 .shooting-star::after {
   content: '';
   position: absolute;
@@ -75,7 +75,6 @@ a {
   transform: translateY(-50%);
 }
 
-/* Soft glow along the trail */
 .shooting-star::before {
   content: '';
   position: absolute;
@@ -91,23 +90,26 @@ a {
   pointer-events: none;
 }
 
+/*
+  Explicit screen-space motion: +X right, +Y down.
+  Rotate only orients the trail; translate always falls down-right.
+*/
 @keyframes shooting-star-fly {
   0% {
-    /* Move along the rotated axis so the path is a long diagonal */
-    transform: rotate(var(--star-angle, 32deg)) translateX(0) scaleX(0.35);
+    transform: translate3d(0, 0, 0) rotate(var(--star-angle, 32deg)) scaleX(0.4);
     opacity: 0;
   }
-  6% {
+  8% {
     opacity: var(--star-opacity, 0.75);
-    transform: rotate(var(--star-angle, 32deg)) translateX(2vw) scaleX(1);
+    transform: translate3d(3vw, 2vh, 0) rotate(var(--star-angle, 32deg))
+      scaleX(1);
   }
-  75% {
+  72% {
     opacity: var(--star-opacity, 0.75);
   }
   100% {
-    /* Cross most of the screen before fading */
-    transform: rotate(var(--star-angle, 32deg))
-      translateX(var(--star-travel, 85vw)) scaleX(0.85);
+    transform: translate3d(var(--star-dx, 70vw), var(--star-dy, 50vh), 0)
+      rotate(var(--star-angle, 32deg)) scaleX(0.9);
     opacity: 0;
   }
 }
