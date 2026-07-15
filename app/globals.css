@@ -171,7 +171,64 @@ a {
   animation: fade-slide-in 0.35s ease-out both;
 }
 
+/* Scroll-driven section reveals */
+html {
+  scroll-behavior: smooth;
+}
+
+.reveal {
+  --reveal-delay: 0ms;
+  opacity: 0;
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay);
+  will-change: opacity, transform;
+}
+
+.reveal-up {
+  transform: translate3d(0, 36px, 0);
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.reveal-left {
+  transform: translate3d(-28px, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(28px, 0, 0);
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children: mark with data-reveal-child */
+.reveal-stagger [data-reveal-child] {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-stagger [data-reveal-child].reveal-child-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .caret-blink,
   .float-particle,
   .fade-slide-in {
@@ -179,5 +236,12 @@ a {
   }
   .caret-blink {
     opacity: 1;
+  }
+
+  .reveal,
+  .reveal-stagger [data-reveal-child] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
