@@ -63,10 +63,10 @@ export function OssList({ repos }: OssListProps) {
               href={repo.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-panel group flex h-full flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/40 motion-reduce:transform-none"
+              className="glass-panel group flex h-full flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/40 motion-reduce:transform-none"
             >
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-lg font-semibold tracking-tight text-white group-hover:text-blue-200">
+                <h3 className="text-lg font-semibold tracking-tight text-white group-hover:text-violet-200">
                   {repo.name}
                 </h3>
                 {s ? (

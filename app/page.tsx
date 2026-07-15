@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { CaseCard } from '@/components/CaseCard'
 import { Hero } from '@/components/Hero'
+import { HomeProductDemo } from '@/components/HomeProductDemo'
 import { MethodSteps } from '@/components/MethodSteps'
 import { OssList } from '@/components/OssList'
 import { ProofBar } from '@/components/ProofBar'
 import { SectionHeading } from '@/components/SectionHeading'
-import { TerminalHero } from '@/components/TerminalHero'
 import { getSiteConfig, loadCases } from '@/lib/content'
 
 const STACK_LOGOS = [
@@ -28,14 +28,12 @@ export default function Home() {
     <div>
       <Hero name={site.name} tagline={site.tagline} githubUrl={site.github} />
 
-      <div id="terminal">
-        <TerminalHero
-          caseSlugs={cases.map((c) => c.slug)}
-          githubUrl={site.github}
-          whatsappDigits={digits}
-          tagline={site.tagline}
-        />
-      </div>
+      <HomeProductDemo
+        caseSlugs={cases.map((c) => c.slug)}
+        githubUrl={site.github}
+        whatsappDigits={digits}
+        tagline={site.tagline}
+      />
 
       {/* Logo / stack strip — Codelab “loved by” style */}
       <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
@@ -103,7 +101,7 @@ export default function Home() {
           ].map((tag) => (
             <li
               key={tag}
-              className="rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-sm text-blue-200/90"
+              className="rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-2 text-sm text-violet-200/90"
             >
               {tag}
             </li>
@@ -123,7 +121,7 @@ export default function Home() {
       <section className="relative overflow-hidden px-4 py-20 sm:px-6">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-violet-600/10 to-transparent"
         />
         <div className="glass-panel relative mx-auto max-w-3xl rounded-3xl px-8 py-14 text-center">
           <p className="section-label mb-3">Contato</p>
@@ -136,7 +134,7 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/contato"
-              className="inline-flex items-center rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-600/30 transition-colors hover:bg-blue-500"
+              className="inline-flex items-center rounded-full bg-violet-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500"
             >
               Falar comigo
             </Link>
@@ -144,7 +142,7 @@ export default function Home() {
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-blue-500/40"
+              className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-violet-500/40"
             >
               GitHub
             </a>

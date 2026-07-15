@@ -13,9 +13,9 @@ export function MethodSteps({ steps }: MethodStepsProps) {
       {steps.map((step, index) => (
         <li
           key={step.title}
-          className="glass-panel flex flex-col rounded-2xl p-6 transition-colors hover:border-blue-500/30"
+          className="glass-panel flex flex-col rounded-2xl p-6 transition-colors hover:border-violet-500/30"
         >
-          <span className="text-sm font-medium text-blue-400">
+          <span className="text-sm font-medium text-violet-400">
             {String(index + 1).padStart(2, '0')}
           </span>
           <h3 className="mt-3 text-lg font-semibold tracking-tight text-white">

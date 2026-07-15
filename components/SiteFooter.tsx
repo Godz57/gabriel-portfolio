@@ -13,7 +13,7 @@ export function SiteFooter({ name, githubUrl }: SiteFooterProps) {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-12 sm:flex-row sm:items-center sm:px-6">
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-white">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600/20 text-blue-400 ring-1 ring-blue-500/30">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600/20 text-violet-400 ring-1 ring-violet-500/30">
               G
             </span>
             {name}
@@ -23,20 +23,20 @@ export function SiteFooter({ name, githubUrl }: SiteFooterProps) {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400">
-          <Link href="/cases" className="hover:text-blue-400">
+          <Link href="/cases" className="hover:text-violet-400">
             Cases
           </Link>
-          <Link href="/stack" className="hover:text-blue-400">
+          <Link href="/stack" className="hover:text-violet-400">
             Stack
           </Link>
-          <Link href="/contato" className="hover:text-blue-400">
+          <Link href="/contato" className="hover:text-violet-400">
             Contato
           </Link>
           <a
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-400"
+            className="hover:text-violet-400"
           >
             GitHub
           </a>
