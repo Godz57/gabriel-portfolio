@@ -15,18 +15,27 @@ export function Hero({
   imageSrc = '/gabriel-almeida.jpg',
 }: HeroProps) {
   return (
-    <section className="relative mx-auto max-w-4xl overflow-hidden px-4 pb-8 pt-16 text-center sm:px-6 sm:pb-10 sm:pt-20">
-      {/* Ambient orbs */}
+    <section className="relative overflow-hidden px-4 pb-8 pt-16 text-center sm:px-6 sm:pb-10 sm:pt-20">
+      <div className="hero-beams" aria-hidden />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/20 blur-[100px]"
+        className="pointer-events-none absolute left-1/2 top-[20%] h-[480px] w-[min(100%,640px)] -translate-x-1/2 rounded-full bg-violet-600/25 blur-[110px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[55%] h-40 w-40 -translate-x-1/2 rounded-full bg-violet-400/30 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-[48%] h-48 w-48 -translate-x-1/2 rounded-full bg-violet-400/25 blur-3xl"
+      />
+      {/* Side vignette */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#05060a] to-transparent sm:w-40"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#05060a] to-transparent sm:w-40"
       />
 
-      <div className="relative">
+      <div className="relative mx-auto max-w-4xl">
         <p className="mb-6 inline-flex items-center rounded-full border border-violet-500/25 bg-violet-500/10 px-3.5 py-1 text-xs font-medium tracking-wide text-violet-300">
           CLI · LLM · AUTOMACÃO REAL
         </p>

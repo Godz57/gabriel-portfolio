@@ -5,6 +5,7 @@ import { HomeProductDemo } from '@/components/HomeProductDemo'
 import { MethodSteps } from '@/components/MethodSteps'
 import { OssList } from '@/components/OssList'
 import { ProofBar } from '@/components/ProofBar'
+import { FaqAccordion } from '@/components/FaqAccordion'
 import { SectionHeading } from '@/components/SectionHeading'
 import { ServicesGrid } from '@/components/ServicesGrid'
 import { getSiteConfig, loadCases } from '@/lib/content'
@@ -112,6 +113,24 @@ export default function Home() {
           description="Skills, loops e quality gates — stats ao vivo do GitHub."
         />
         <OssList repos={site.ossRepos} />
+      </section>
+
+      <section id="faq" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+        <SectionHeading
+          label="FAQ"
+          title="Perguntas frequentes"
+          description="Respostas diretas sobre escopo, prazos, stack e como trabalhamos juntos."
+        />
+        <FaqAccordion />
+        <div className="glass-panel mx-auto mt-10 max-w-md rounded-2xl px-6 py-8 text-center">
+          <p className="text-sm font-medium text-white">Ainda tem dúvidas?</p>
+          <Link
+            href="/contato"
+            className="mt-4 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-zinc-200 transition-colors hover:border-violet-500/40 hover:text-white"
+          >
+            Falar comigo
+          </Link>
+        </div>
       </section>
 
       <section className="relative overflow-hidden px-4 py-20 sm:px-6">

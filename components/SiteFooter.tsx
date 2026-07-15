@@ -29,6 +29,9 @@ export function SiteFooter({ name, githubUrl }: SiteFooterProps) {
           <Link href="/cases" className="hover:text-violet-400">
             Cases
           </Link>
+          <Link href="/#faq" className="hover:text-violet-400">
+            FAQ
+          </Link>
           <Link href="/stack" className="hover:text-violet-400">
             Stack
           </Link>
