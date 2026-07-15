@@ -5,6 +5,7 @@ type SiteHeaderProps = {
 }
 
 const navLinks = [
+  { href: '/#servicos', label: 'Serviços' },
   { href: '/cases', label: 'Cases' },
   { href: '/stack', label: 'Stack' },
   { href: '/contato', label: 'Contato' },

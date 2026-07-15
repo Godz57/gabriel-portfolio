@@ -23,6 +23,10 @@ describe('SiteHeader', () => {
     expect(
       screen.getByRole('link', { name: /gabriel almeida/i }),
     ).toHaveAttribute('href', '/')
+    expect(screen.getByRole('link', { name: /^serviços$/i })).toHaveAttribute(
+      'href',
+      '/#servicos',
+    )
     expect(screen.getByRole('link', { name: /^cases$/i })).toHaveAttribute(
       'href',
       '/cases',

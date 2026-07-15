@@ -6,6 +6,7 @@ import { MethodSteps } from '@/components/MethodSteps'
 import { OssList } from '@/components/OssList'
 import { ProofBar } from '@/components/ProofBar'
 import { SectionHeading } from '@/components/SectionHeading'
+import { ServicesGrid } from '@/components/ServicesGrid'
 import { getSiteConfig, loadCases } from '@/lib/content'
 
 const STACK_LOGOS = [
@@ -54,6 +55,28 @@ export default function Home() {
 
       <ProofBar items={site.proofItems} />
 
+      <section
+        id="servicos"
+        className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20"
+      >
+        <SectionHeading
+          label="O que fazemos"
+          title="Sites, agentes e automação de ponta a ponta"
+          description="Da landing que vende ao agente que atende — com engenharia séria, não só protótipo."
+        />
+        <ServicesGrid />
+        <p className="mx-auto mt-10 max-w-2xl text-center text-sm text-zinc-500">
+          Precisa de algo híbrido (ex.: site + bot no WhatsApp + painel)?{' '}
+          <Link
+            href="/contato"
+            className="font-medium text-violet-400 underline-offset-4 hover:text-violet-300 hover:underline"
+          >
+            Fale comigo
+          </Link>{' '}
+          e montamos o escopo.
+        </p>
+      </section>
+
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <SectionHeading
           label="Cases"
@@ -80,33 +103,6 @@ export default function Home() {
           description="O mesmo fluxo dos kits de agentes: brainstorm, plan, TDD e verify-done."
         />
         <MethodSteps steps={site.methodSteps} />
-      </section>
-
-      {/* Pill tags — Codelab “what makes different” */}
-      <section className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-        <SectionHeading
-          label="Foco"
-          title="O que eu entrego"
-          description="Especialização em tooling de agentes e automação com qualidade."
-        />
-        <ul className="flex flex-wrap justify-center gap-3">
-          {[
-            'Agent tooling',
-            'CLI + LLM',
-            'Playwright loops',
-            'TDD & verify',
-            'Security gates',
-            'Open source kits',
-            'Automação comercial',
-          ].map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-2 text-sm text-violet-200/90"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">

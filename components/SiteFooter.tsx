@@ -23,6 +23,9 @@ export function SiteFooter({ name, githubUrl }: SiteFooterProps) {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400">
+          <Link href="/#servicos" className="hover:text-violet-400">
+            Serviços
+          </Link>
           <Link href="/cases" className="hover:text-violet-400">
             Cases
           </Link>
