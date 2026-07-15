@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { CommandPaletteHost } from '@/components/CommandPaletteHost'
+import { CursorGlow } from '@/components/CursorGlow'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { getSiteConfig } from '@/lib/content'
@@ -40,9 +42,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-100">
+        <CursorGlow />
         <SiteHeader name={site.name} />
-        <main className="flex-1">{children}</main>
+        <main className="relative z-10 flex-1">{children}</main>
         <SiteFooter name={site.name} githubUrl={site.github} />
+        <CommandPaletteHost />
       </body>
     </html>
   )

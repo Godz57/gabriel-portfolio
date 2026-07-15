@@ -11,18 +11,20 @@ export function CaseCard({ slug, title, summary, stack }: CaseCardProps) {
   return (
     <Link
       href={`/cases/${slug}`}
-      className="group flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 transition-colors hover:border-violet-500/50 hover:bg-zinc-900/80"
+      className="group flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/60 hover:bg-zinc-900/80 hover:shadow-lg hover:shadow-violet-950/40 motion-reduce:transform-none motion-reduce:transition-colors"
     >
       <h3 className="text-lg font-semibold tracking-tight text-zinc-50 group-hover:text-violet-300">
         {title}
       </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">{summary}</p>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">
+        {summary}
+      </p>
       {stack.length > 0 ? (
         <ul className="mt-4 flex flex-wrap gap-2">
           {stack.map((tech) => (
             <li
               key={tech}
-              className="rounded-md border border-zinc-700/80 bg-zinc-950/60 px-2 py-0.5 text-xs text-zinc-400"
+              className="rounded-md border border-zinc-700/80 bg-zinc-950/60 px-2 py-0.5 text-xs text-zinc-400 transition-colors group-hover:border-violet-500/30"
             >
               {tech}
             </li>

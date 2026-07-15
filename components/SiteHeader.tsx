@@ -30,6 +30,12 @@ export function SiteHeader({ name }: SiteHeaderProps) {
               {link.label}
             </Link>
           ))}
+          <span
+            className="hidden font-mono text-[10px] text-zinc-600 sm:inline"
+            title="Command palette"
+          >
+            Ctrl+K
+          </span>
         </nav>
       </div>
     </header>
