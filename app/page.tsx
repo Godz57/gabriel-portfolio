@@ -70,7 +70,7 @@ export default function Home() {
       <section className="border-t border-zinc-800 bg-zinc-900/50">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
-            Freela, CLT ou collab
+            Fale comigo
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
             Automação, agentes e sistemas com loop em produção. Vamos conversar.
