@@ -5,7 +5,6 @@ type HeroProps = {
   name: string
   tagline: string
   githubUrl: string
-  /** Public path under /public. Omit to hide photo. */
   imageSrc?: string
 }
 
@@ -16,55 +15,66 @@ export function Hero({
   imageSrc = '/gabriel-almeida.jpg',
 }: HeroProps) {
   return (
-    <section className="relative mx-auto max-w-5xl overflow-hidden px-4 py-16 sm:px-6 sm:py-24">
+    <section className="relative mx-auto max-w-4xl overflow-hidden px-4 pb-8 pt-16 text-center sm:px-6 sm:pb-10 sm:pt-20">
+      {/* Ambient orbs */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-20 right-0 h-72 w-72 rounded-full bg-violet-600/25 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[100px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-16 left-0 h-48 w-48 rounded-full bg-violet-900/30 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-[55%] h-40 w-40 -translate-x-1/2 rounded-full bg-blue-400/30 blur-3xl"
       />
 
-      <div className="relative flex flex-col-reverse items-start gap-10 sm:flex-row sm:items-center sm:justify-between sm:gap-12">
-        <div className="min-w-0 flex-1">
-          <p className="mb-3 text-sm font-medium tracking-wide text-violet-400">
-            CLI · LLM · automação real
-          </p>
-          <h1 className="text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
-            {name}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-400 sm:text-xl">
-            {tagline}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              href="/cases"
-              className="inline-flex items-center rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-violet-500"
-            >
-              Ver cases
-            </Link>
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-violet-500 hover:text-violet-400"
-            >
-              GitHub
-            </a>
-          </div>
+      <div className="relative">
+        <p className="mb-6 inline-flex items-center rounded-full border border-blue-500/25 bg-blue-500/10 px-3.5 py-1 text-xs font-medium tracking-wide text-blue-300">
+          CLI · LLM · AUTOMACÃO REAL
+        </p>
+
+        <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.08]">
+          {name}
+          <span className="mt-2 block bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
+            Agentes e sistemas em produção
+          </span>
+        </h1>
+
+        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+          {tagline}
+        </p>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/cases"
+            className="inline-flex items-center rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-600/30 transition-colors hover:bg-blue-500"
+          >
+            Ver cases
+          </Link>
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-blue-500/40 hover:text-white"
+          >
+            GitHub
+          </a>
         </div>
 
         {imageSrc ? (
-          <div className="shrink-0">
-            <Image
-              src={imageSrc}
-              alt={name}
-              width={176}
-              height={176}
-              priority
-              className="h-36 w-36 rounded-2xl border border-zinc-800 object-cover shadow-xl shadow-violet-950/50 ring-2 ring-violet-500/35 sm:h-44 sm:w-44"
-            />
+          <div className="mt-10 flex justify-center">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute -inset-3 rounded-full bg-blue-500/20 blur-xl"
+              />
+              <Image
+                src={imageSrc}
+                alt={name}
+                width={96}
+                height={96}
+                priority
+                className="relative h-20 w-20 rounded-full border border-white/10 object-cover shadow-xl ring-2 ring-blue-500/30 sm:h-24 sm:w-24"
+              />
+            </div>
           </div>
         ) : null}
       </div>

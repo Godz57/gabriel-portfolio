@@ -11,9 +11,17 @@ export function CaseCard({ slug, title, summary, stack }: CaseCardProps) {
   return (
     <Link
       href={`/cases/${slug}`}
-      className="group flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/60 hover:bg-zinc-900/80 hover:shadow-lg hover:shadow-violet-950/40 motion-reduce:transform-none motion-reduce:transition-colors"
+      className="glass-panel group flex flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.45)] motion-reduce:transform-none"
     >
-      <h3 className="text-lg font-semibold tracking-tight text-zinc-50 group-hover:text-violet-300">
+      <div
+        aria-hidden
+        className="mb-5 flex h-28 items-center justify-center rounded-xl border border-blue-500/10 bg-gradient-to-br from-blue-600/15 via-transparent to-transparent"
+      >
+        <span className="font-mono text-3xl text-blue-500/40 transition-colors group-hover:text-blue-400/70">
+          {'</>'}
+        </span>
+      </div>
+      <h3 className="text-lg font-semibold tracking-tight text-white group-hover:text-blue-200">
         {title}
       </h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">
@@ -24,7 +32,7 @@ export function CaseCard({ slug, title, summary, stack }: CaseCardProps) {
           {stack.map((tech) => (
             <li
               key={tech}
-              className="rounded-md border border-zinc-700/80 bg-zinc-950/60 px-2 py-0.5 text-xs text-zinc-400 transition-colors group-hover:border-violet-500/30"
+              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs text-zinc-400"
             >
               {tech}
             </li>

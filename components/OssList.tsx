@@ -63,14 +63,14 @@ export function OssList({ repos }: OssListProps) {
               href={repo.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-full flex-col rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/60 hover:bg-zinc-900/80 hover:shadow-lg hover:shadow-violet-950/40 motion-reduce:transform-none"
+              className="glass-panel group flex h-full flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/40 motion-reduce:transform-none"
             >
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-lg font-semibold tracking-tight text-zinc-50 group-hover:text-violet-300">
+                <h3 className="text-lg font-semibold tracking-tight text-white group-hover:text-blue-200">
                   {repo.name}
                 </h3>
                 {s ? (
-                  <span className="shrink-0 rounded-md border border-zinc-700 bg-zinc-950/70 px-2 py-0.5 font-mono text-xs text-amber-200/90">
+                  <span className="shrink-0 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 font-mono text-xs text-amber-200/90">
                     ★ {s.stars}
                   </span>
                 ) : null}

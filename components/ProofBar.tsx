@@ -11,17 +11,18 @@ type ProofBarProps = {
 
 export function ProofBar({ items }: ProofBarProps) {
   return (
-    <section
-      aria-label="Provas e métricas"
-      className="border-y border-zinc-800 bg-zinc-900/50"
-    >
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+    <section aria-label="Provas e métricas" className="px-4 py-12 sm:px-6">
+      <p className="mb-8 text-center text-sm text-zinc-500">
+        Prova em números — tooling, automação e método
+      </p>
+      <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 lg:grid-cols-4">
         {items.map((item) => (
-          <AnimatedStat
+          <div
             key={item.label}
-            value={item.value}
-            label={item.label}
-          />
+            className="glass-panel rounded-2xl px-5 py-6 text-center"
+          >
+            <AnimatedStat value={item.value} label={item.label} />
+          </div>
         ))}
       </div>
     </section>

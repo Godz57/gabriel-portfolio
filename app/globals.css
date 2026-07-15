@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
+  --background: #05060a;
   --foreground: #f4f4f5;
-  --accent: #8b5cf6;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.15);
+  --glass: rgba(15, 18, 28, 0.65);
+  --glass-border: rgba(59, 130, 246, 0.18);
 }
 
 @theme inline {
@@ -19,12 +22,58 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.12), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(91, 33, 182, 0.08), transparent);
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(37, 99, 235, 0.22), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 0% 40%, rgba(29, 78, 216, 0.12), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 100% 60%, rgba(59, 130, 246, 0.1), transparent 50%),
+    linear-gradient(165deg, transparent 40%, rgba(15, 23, 42, 0.4) 100%);
   background-attachment: fixed;
+  min-height: 100%;
+}
+
+/* Diagonal light beams (Codelab-like) */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(59, 130, 246, 0.04) 42%,
+      transparent 48%,
+      transparent 62%,
+      rgba(37, 99, 235, 0.05) 68%,
+      transparent 75%
+    );
+  opacity: 0.9;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Shared glass surface */
+.glass-panel {
+  background: linear-gradient(
+    160deg,
+    rgba(24, 28, 42, 0.75) 0%,
+    rgba(10, 12, 20, 0.85) 100%
+  );
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 24px 80px -20px rgba(0, 0, 0, 0.7),
+    0 0 60px -20px rgba(59, 130, 246, 0.25);
+  backdrop-filter: blur(16px);
+}
+
+.section-label {
+  color: #60a5fa;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }

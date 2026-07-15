@@ -20,19 +20,18 @@ vi.mock('next/link', () => ({
 describe('SiteHeader', () => {
   it('links to main sections', () => {
     render(<SiteHeader name="Gabriel Almeida" />)
-    expect(screen.getByRole('link', { name: /gabriel almeida/i })).toHaveAttribute(
-      'href',
-      '/',
-    )
-    expect(screen.getByRole('link', { name: /cases/i })).toHaveAttribute(
+    expect(
+      screen.getByRole('link', { name: /gabriel almeida/i }),
+    ).toHaveAttribute('href', '/')
+    expect(screen.getByRole('link', { name: /^cases$/i })).toHaveAttribute(
       'href',
       '/cases',
     )
-    expect(screen.getByRole('link', { name: /stack/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /^stack$/i })).toHaveAttribute(
       'href',
       '/stack',
     )
-    expect(screen.getByRole('link', { name: /contato/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /^contato$/i })).toHaveAttribute(
       'href',
       '/contato',
     )

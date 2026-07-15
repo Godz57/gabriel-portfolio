@@ -10,6 +10,7 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from 'react'
+import { BrowserChrome } from '@/components/BrowserChrome'
 import {
   buildCommands,
   parseCommandLine,
@@ -169,70 +170,68 @@ export function TerminalHero({
   return (
     <section
       aria-label="Terminal interativo"
-      className="mx-auto max-w-5xl px-4 pb-4 sm:px-6"
+      className="relative mx-auto max-w-5xl px-4 pb-6 sm:px-6 sm:pb-10"
     >
       <div
-        className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/90 shadow-xl shadow-violet-950/40 ring-1 ring-violet-500/20"
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[70%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/15 blur-[80px]"
+      />
+      <div
+        className="relative"
         onClick={() => inputRef.current?.focus()}
       >
-        <div className="flex items-center gap-2 border-b border-zinc-800 bg-zinc-900/80 px-4 py-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
-          <span className="ml-2 font-mono text-xs text-zinc-500">
-            ~/gabriel-portfolio
-          </span>
-        </div>
-        <div
-          ref={scrollerRef}
-          className="h-56 overflow-y-auto px-4 py-3 font-mono text-sm leading-relaxed sm:h-64"
-        >
-          {lines.map((line, i) => (
-            <div
-              key={`${i}-${line.text.slice(0, 12)}`}
-              className={
-                line.kind === 'input'
-                  ? 'text-violet-300'
-                  : line.kind === 'system'
-                    ? 'text-zinc-500'
-                    : 'text-zinc-300'
-              }
-            >
-              {line.kind === 'input' ? (
-                <>
-                  <span className="text-violet-500">❯ </span>
-                  {line.text}
-                </>
-              ) : (
-                line.text
-              )}
-            </div>
-          ))}
-          {booted ? (
-            <form onSubmit={onSubmit} className="mt-1 flex items-center gap-2">
-              <span className="text-violet-500">❯</span>
-              <input
-                ref={inputRef}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onKeyDown={onKeyDown}
-                aria-label="Comando do terminal"
-                autoComplete="off"
-                spellCheck={false}
-                className="min-w-0 flex-1 bg-transparent text-zinc-100 outline-none placeholder:text-zinc-600"
-                placeholder="help · open wpp-grok · stack"
-              />
-            </form>
-          ) : null}
-        </div>
+        <BrowserChrome title="gabriel@portfolio — agent shell v1">
+          <div
+            ref={scrollerRef}
+            className="h-56 overflow-y-auto bg-zinc-950/80 px-4 py-3 font-mono text-sm leading-relaxed sm:h-72"
+          >
+            {lines.map((line, i) => (
+              <div
+                key={`${i}-${line.text.slice(0, 12)}`}
+                className={
+                  line.kind === 'input'
+                    ? 'text-blue-300'
+                    : line.kind === 'system'
+                      ? 'text-zinc-500'
+                      : 'text-zinc-300'
+                }
+              >
+                {line.kind === 'input' ? (
+                  <>
+                    <span className="text-blue-500">❯ </span>
+                    {line.text}
+                  </>
+                ) : (
+                  line.text
+                )}
+              </div>
+            ))}
+            {booted ? (
+              <form onSubmit={onSubmit} className="mt-1 flex items-center gap-2">
+                <span className="text-blue-500">❯</span>
+                <input
+                  ref={inputRef}
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  onKeyDown={onKeyDown}
+                  aria-label="Comando do terminal"
+                  autoComplete="off"
+                  spellCheck={false}
+                  className="min-w-0 flex-1 bg-transparent text-zinc-100 outline-none placeholder:text-zinc-600"
+                  placeholder="help · open wpp-grok · stack"
+                />
+              </form>
+            ) : null}
+          </div>
+        </BrowserChrome>
       </div>
-      <p className="mt-3 text-center text-xs text-zinc-500 sm:text-left">
+      <p className="relative mt-4 text-center text-xs text-zinc-500">
         Experimente{' '}
-        <kbd className="rounded border border-zinc-700 bg-zinc-900 px-1.5 py-0.5 font-mono text-zinc-400">
+        <kbd className="rounded border border-white/10 bg-zinc-900/80 px-1.5 py-0.5 font-mono text-zinc-400">
           help
         </kbd>{' '}
         ou{' '}
-        <kbd className="rounded border border-zinc-700 bg-zinc-900 px-1.5 py-0.5 font-mono text-zinc-400">
+        <kbd className="rounded border border-white/10 bg-zinc-900/80 px-1.5 py-0.5 font-mono text-zinc-400">
           Ctrl+K
         </kbd>
       </p>

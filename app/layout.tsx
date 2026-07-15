@@ -41,7 +41,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-100">
+      <body className="relative flex min-h-full flex-col bg-[#05060a] text-zinc-100">
         <CursorGlow />
         <SiteHeader name={site.name} />
         <main className="relative z-10 flex-1">{children}</main>

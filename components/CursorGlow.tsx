@@ -27,7 +27,7 @@ export function CursorGlow() {
       aria-hidden
       className="pointer-events-none fixed inset-0 z-30 mix-blend-screen"
       style={{
-        background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(139, 92, 246, 0.12), transparent 45%)`,
+        background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(59, 130, 246, 0.12), transparent 45%)`,
       }}
     />
   )
