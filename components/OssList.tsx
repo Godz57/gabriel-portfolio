@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import {
   formatRelativeUpdated,
+  safeJsonParse,
   type GithubRepoStats,
 } from '@/lib/github'
 
@@ -16,23 +17,35 @@ type OssListProps = {
   repos: OssRepo[]
 }
 
+type LoadState = 'loading' | 'ready' | 'error'
+
 export function OssList({ repos }: OssListProps) {
   const [stats, setStats] = useState<Record<string, GithubRepoStats | null>>(
     {},
   )
+  const [loadState, setLoadState] = useState<LoadState>('loading')
 
   useEffect(() => {
     let cancelled = false
     ;(async () => {
       try {
         const res = await fetch('/api/github/repos')
-        if (!res.ok) return
-        const data = (await res.json()) as {
-          repos: Record<string, GithubRepoStats | null>
+        const text = await res.text()
+        const data = safeJsonParse<{
+          repos?: Record<string, GithubRepoStats | null>
+        }>(text)
+
+        if (cancelled) return
+
+        if (!res.ok || !data) {
+          setLoadState('error')
+          return
         }
-        if (!cancelled) setStats(data.repos ?? {})
+
+        setStats(data.repos ?? {})
+        setLoadState('ready')
       } catch {
-        // keep static fallback
+        if (!cancelled) setLoadState('error')
       }
     })()
     return () => {
@@ -70,9 +83,13 @@ export function OssList({ repos }: OssListProps) {
                   {s.language ? <span>{s.language}</span> : null}
                   <span>{formatRelativeUpdated(s.updatedAt)}</span>
                 </p>
+              ) : loadState === 'loading' ? (
+                <p className="mt-3 font-mono text-[11px] text-zinc-600">
+                  GitHub · carregando stats…
+                </p>
               ) : (
                 <p className="mt-3 font-mono text-[11px] text-zinc-600">
-                  GitHub · live stats loading…
+                  GitHub · Godz57
                 </p>
               )}
             </a>

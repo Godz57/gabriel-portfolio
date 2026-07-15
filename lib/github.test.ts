@@ -3,6 +3,7 @@ import {
   parseGithubRepoUrl,
   formatRelativeUpdated,
   fetchGithubRepoStats,
+  safeJsonParse,
 } from './github'
 
 describe('parseGithubRepoUrl', () => {
@@ -34,18 +35,34 @@ describe('formatRelativeUpdated', () => {
   })
 })
 
+describe('safeJsonParse', () => {
+  it('parses valid JSON', () => {
+    expect(safeJsonParse<{ a: number }>('{"a":1}')).toEqual({ a: 1 })
+  })
+
+  it('returns null on empty body', () => {
+    expect(safeJsonParse('')).toBeNull()
+    expect(safeJsonParse('   ')).toBeNull()
+  })
+
+  it('returns null on invalid JSON', () => {
+    expect(safeJsonParse('{')).toBeNull()
+  })
+})
+
 describe('fetchGithubRepoStats', () => {
   it('maps API payload', async () => {
+    const body = JSON.stringify({
+      name: 'grok-loops',
+      full_name: 'Godz57/grok-loops',
+      html_url: 'https://github.com/Godz57/grok-loops',
+      stargazers_count: 12,
+      language: 'TypeScript',
+      pushed_at: '2026-07-01T00:00:00Z',
+    })
     const fetchImpl = vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => ({
-        name: 'grok-loops',
-        full_name: 'Godz57/grok-loops',
-        html_url: 'https://github.com/Godz57/grok-loops',
-        stargazers_count: 12,
-        language: 'TypeScript',
-        pushed_at: '2026-07-01T00:00:00Z',
-      }),
+      text: async () => body,
     })
 
     const stats = await fetchGithubRepoStats(
@@ -62,8 +79,20 @@ describe('fetchGithubRepoStats', () => {
     })
   })
 
+  it('returns null on empty body without throwing', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => '',
+    })
+    const stats = await fetchGithubRepoStats(
+      'https://github.com/Godz57/x',
+      fetchImpl as unknown as typeof fetch,
+    )
+    expect(stats).toBeNull()
+  })
+
   it('returns null on error', async () => {
-    const fetchImpl = vi.fn().mockResolvedValue({ ok: false })
+    const fetchImpl = vi.fn().mockResolvedValue({ ok: false, text: async () => '' })
     const stats = await fetchGithubRepoStats(
       'https://github.com/Godz57/x',
       fetchImpl as unknown as typeof fetch,

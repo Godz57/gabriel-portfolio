@@ -45,6 +45,17 @@ type GhApiRepo = {
   pushed_at: string
 }
 
+/** Safe JSON parse — empty / invalid body returns null (no throw). */
+export function safeJsonParse<T>(text: string): T | null {
+  const trimmed = text.trim()
+  if (!trimmed) return null
+  try {
+    return JSON.parse(trimmed) as T
+  } catch {
+    return null
+  }
+}
+
 export async function fetchGithubRepoStats(
   url: string,
   fetchImpl: typeof fetch = fetch,
@@ -63,7 +74,11 @@ export async function fetchGithubRepoStats(
   )
 
   if (!res.ok) return null
-  const data = (await res.json()) as GhApiRepo
+
+  const text = await res.text()
+  const data = safeJsonParse<GhApiRepo>(text)
+  if (!data || typeof data.stargazers_count !== 'number') return null
+
   return {
     name: data.name,
     fullName: data.full_name,
