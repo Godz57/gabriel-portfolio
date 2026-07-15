@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { CommandPaletteHost } from '@/components/CommandPaletteHost'
 import { CursorGlow } from '@/components/CursorGlow'
-import { SideChrome } from '@/components/SideChrome'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { getSiteConfig } from '@/lib/content'
@@ -44,7 +43,6 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-100">
         <CursorGlow />
-        <SideChrome />
         <SiteHeader name={site.name} />
         <main className="relative z-10 flex-1">{children}</main>
         <SiteFooter name={site.name} githubUrl={site.github} />
