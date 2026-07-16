@@ -33,14 +33,29 @@ const jetbrainsMono = JetBrains_Mono({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 
+const siteDescription =
+  'Sites, agentes e automações — do skill ao bot em produção. Portfólio de Gabriel Almeida · ARC WEB.'
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Gabriel Almeida',
+    default: 'Gabriel Almeida · ARC WEB',
     template: '%s · Gabriel Almeida',
   },
-  description:
-    'Portfólio de Gabriel Almeida — engenharia de agentes CLI/LLM, automação real e toolkits open source: do skill ao bot em produção.',
+  description: siteDescription,
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    url: siteUrl,
+    siteName: 'Gabriel Almeida · ARC WEB',
+    title: 'Gabriel Almeida · Sites, agentes e automações',
+    description: siteDescription,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gabriel Almeida · Sites, agentes e automações',
+    description: siteDescription,
+  },
 }
 
 export default function RootLayout({
