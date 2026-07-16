@@ -1,11 +1,4 @@
 import Image from 'next/image'
-import { Outfit } from 'next/font/google'
-
-const wordmarkFont = Outfit({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  display: 'swap',
-})
 
 type ArcLogoProps = {
   /** mark = monogram only; lockup = monogram-as-A + "RC WEB" */
@@ -21,7 +14,7 @@ const MARK_SRC = '/brand/mark-a-core.png'
 
 /**
  * ARC WEB wordmark (same system as arc-web site).
- * Monogram is the "A" → rest is "RC WEB".
+ * Uses site Outfit via CSS variable (no second font load).
  */
 export function ArcLogo({
   variant = 'lockup',
@@ -69,8 +62,9 @@ export function ArcLogo({
     >
       {mark}
       <span
-        className={`${wordmarkFont.className} text-zinc-100/90 transition-colors group-hover:text-white`}
+        className="text-zinc-100/90 transition-colors group-hover:text-white"
         style={{
+          fontFamily: 'var(--font-outfit), system-ui, sans-serif',
           fontSize: typeSize,
           fontWeight: 300,
           letterSpacing: '0.22em',

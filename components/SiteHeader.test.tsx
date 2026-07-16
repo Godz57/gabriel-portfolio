@@ -31,10 +31,6 @@ vi.mock('next/image', () => ({
   ),
 }))
 
-vi.mock('next/font/google', () => ({
-  Outfit: () => ({ className: 'font-outfit-mock' }),
-}))
-
 describe('SiteHeader', () => {
   it('shows ARC WEB logo home link and main sections', () => {
     render(<SiteHeader />)

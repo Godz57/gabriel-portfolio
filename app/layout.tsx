@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { JetBrains_Mono, Outfit, Sora } from 'next/font/google'
 import { CommandPaletteHost } from '@/components/CommandPaletteHost'
 import { CursorGlow } from '@/components/CursorGlow'
 import { SiteFooter } from '@/components/SiteFooter'
@@ -7,14 +7,28 @@ import { SiteHeader } from '@/components/SiteHeader'
 import { getSiteConfig } from '@/lib/content'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+/** UI body — geometric, soft, matches ARC wordmark system */
+const outfit = Outfit({
   subsets: ['latin'],
+  variable: '--font-outfit',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+/** Headlines — slightly more character, still tech-clean */
+const sora = Sora({
   subsets: ['latin'],
+  variable: '--font-sora',
+  weight: ['500', '600', '700'],
+  display: 'swap',
+})
+
+/** Terminal / code */
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  weight: ['400', '500'],
+  display: 'swap',
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
@@ -39,7 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${sora.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="relative flex min-h-full flex-col bg-[#05060a] text-zinc-100">
         <CursorGlow />

@@ -13,14 +13,18 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-outfit), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01' on, 'cv11' on;
+  letter-spacing: -0.011em;
   background-image:
     radial-gradient(ellipse 90% 60% at 50% -10%, rgba(109, 40, 217, 0.22), transparent 55%),
     radial-gradient(ellipse 50% 40% at 0% 40%, rgba(91, 33, 182, 0.14), transparent 50%),
@@ -28,6 +32,24 @@ body {
     linear-gradient(165deg, transparent 40%, rgba(24, 16, 40, 0.45) 100%);
   background-attachment: fixed;
   min-height: 100%;
+}
+
+/* Display type for major titles */
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+.font-mono,
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  font-feature-settings: normal;
 }
 
 body::before {
@@ -69,10 +91,12 @@ a {
 }
 
 .section-label {
+  font-family: var(--font-sans);
   color: #a78bfa;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* Cinematic beams (hero / mockup zone) */
