@@ -36,6 +36,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 const siteDescription =
   'Sites, agentes e automações — do skill ao bot em produção. Portfólio de Gabriel Almeida · ARC WEB.'
 
+/** Static PNG in /public — WhatsApp requires absolute .png/.jpg URL (dynamic /opengraph-image often fails). */
+const ogImage = {
+  url: '/og.png',
+  width: 1200,
+  height: 630,
+  alt: 'Gabriel Almeida · ARC WEB — sites, agentes e automações',
+  type: 'image/png' as const,
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -46,15 +55,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: siteUrl,
+    url: '/',
     siteName: 'Gabriel Almeida · ARC WEB',
     title: 'Gabriel Almeida · Sites, agentes e automações',
     description: siteDescription,
+    images: [ogImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Gabriel Almeida · Sites, agentes e automações',
     description: siteDescription,
+    images: [ogImage],
   },
 }
 
