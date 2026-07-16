@@ -163,7 +163,6 @@ export default async function OpenGraphImage() {
               background: 'rgba(139,92,246,0.12)',
               borderRadius: 999,
               padding: '8px 18px',
-              width: 'fit-content',
               color: '#c4b5fd',
               fontSize: 18,
               fontWeight: 500,
