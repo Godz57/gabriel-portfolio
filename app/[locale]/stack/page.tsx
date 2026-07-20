@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MethodSteps } from '@/components/MethodSteps'
 import { ScrollReveal } from '@/components/ScrollReveal'
 import { isLocale } from '@/i18n/routing'
@@ -41,6 +41,7 @@ export default async function StackPage({ params }: StackPageProps) {
   const locale = isLocale(raw) ? raw : 'pt'
   setRequestLocale(locale)
 
+  const t = await getTranslations('Stack')
   const site = getSiteConfig(locale)
 
   return (
@@ -48,12 +49,10 @@ export default async function StackPage({ params }: StackPageProps) {
       <ScrollReveal variant="up">
         <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
-            Stack e método
+            {t('title')}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-            Ferramentas e processo que uso para entregar automação, agentes e
-            sistemas com loop em produção — do design aprovado à evidência de
-            pronto.
+            {t('intro')}
           </p>
         </section>
       </ScrollReveal>
@@ -61,7 +60,7 @@ export default async function StackPage({ params }: StackPageProps) {
       <ScrollReveal variant="up" stagger={60}>
         <section className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 sm:pb-20">
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
-            Stack principal
+            {t('mainTitle')}
           </h2>
           <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {stackItems.map((item) => (
@@ -80,11 +79,10 @@ export default async function StackPage({ params }: StackPageProps) {
       <ScrollReveal variant="up">
         <section className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 sm:pb-20">
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
-            Método
+            {t('methodTitle')}
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-            O mesmo fluxo dos kits de agentes: brainstorm → plan → TDD →
-            verify-done.
+            {t('methodIntro')}
           </p>
           <div className="mt-8">
             <MethodSteps steps={site.methodSteps} />

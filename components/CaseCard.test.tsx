@@ -2,10 +2,25 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { CaseCard } from './CaseCard'
 
-vi.mock('next/link', () => ({
-  default: ({ children, href, ...props }: { children: React.ReactNode; href: string }) => (
-    <a href={href} {...props}>{children}</a>
-  ),
+vi.mock('@/i18n/navigation', () => ({
+  Link: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode
+    href: string | { pathname: string; params?: { slug: string } }
+  }) => {
+    const resolved =
+      typeof href === 'string'
+        ? href
+        : href.pathname.replace('[slug]', href.params?.slug ?? '')
+    return (
+      <a href={resolved} {...props}>
+        {children}
+      </a>
+    )
+  },
 }))
 
 describe('CaseCard', () => {

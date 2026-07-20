@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { Hero } from './Hero'
 
-vi.mock('next/link', () => ({
-  default: ({
+vi.mock('@/i18n/navigation', () => ({
+  Link: ({
     children,
     href,
     ...props
@@ -11,7 +11,7 @@ vi.mock('next/link', () => ({
     children: React.ReactNode
     href: string
   }) => (
-    <a href={href} {...props}>
+    <a href={typeof href === 'string' ? href : '#'} {...props}>
       {children}
     </a>
   ),
@@ -38,6 +38,9 @@ describe('Hero', () => {
         name="Gabriel Almeida"
         tagline="Landing pages, sites e agentes CLI/LLM."
         githubUrl="https://github.com/Godz57"
+        headline="Sites, agentes e automações"
+        headlineAccent="do skill ao bot em produção"
+        viewCasesLabel="Ver cases"
       />,
     )
     expect(screen.getByText(/gabriel almeida/i)).toBeInTheDocument()

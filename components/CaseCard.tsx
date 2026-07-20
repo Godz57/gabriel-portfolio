@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 type CaseCardProps = {
   slug: string
@@ -10,7 +10,7 @@ type CaseCardProps = {
 export function CaseCard({ slug, title, summary, stack }: CaseCardProps) {
   return (
     <Link
-      href={`/cases/${slug}`}
+      href={{ pathname: '/cases/[slug]', params: { slug } }}
       className="glass-panel group flex flex-col rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:border-violet-500/40 hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.45)] motion-reduce:transform-none"
     >
       <div

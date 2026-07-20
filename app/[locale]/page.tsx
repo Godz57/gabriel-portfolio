@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { CaseCard } from '@/components/CaseCard'
 import { Hero } from '@/components/Hero'
 import { HomeProductDemo } from '@/components/HomeProductDemo'
@@ -11,6 +10,7 @@ import { ScopePlayground } from '@/components/ScopePlayground'
 import { ScrollReveal } from '@/components/ScrollReveal'
 import { SectionHeading } from '@/components/SectionHeading'
 import { ServicesGrid } from '@/components/ServicesGrid'
+import { Link } from '@/i18n/navigation'
 import { isLocale } from '@/i18n/routing'
 import { getSiteConfig, loadCases } from '@/lib/content'
 
@@ -34,6 +34,9 @@ export default async function Home({ params }: HomePageProps) {
   const locale = isLocale(raw) ? raw : 'pt'
   setRequestLocale(locale)
 
+  const t = await getTranslations('Home')
+  const tHero = await getTranslations('Hero')
+  const tCommon = await getTranslations('Common')
   const site = getSiteConfig(locale)
   const cases = loadCases(locale)
   const digits = site.whatsapp?.replace(/\D/g, '') || undefined
@@ -41,7 +44,15 @@ export default async function Home({ params }: HomePageProps) {
   return (
     <div>
       <ScrollReveal variant="fade" delay={0}>
-        <Hero name={site.name} tagline={site.tagline} githubUrl={site.github} />
+        <Hero
+          name={site.name}
+          tagline={site.tagline}
+          githubUrl={site.github}
+          headline={tHero('headline')}
+          headlineAccent={tHero('headlineAccent')}
+          viewCasesLabel={tHero('viewCases')}
+          githubLabel={tCommon('github')}
+        />
       </ScrollReveal>
 
       <ScrollReveal variant="up" delay={80}>
@@ -56,7 +67,7 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal variant="up">
         <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
           <p className="mb-6 text-center text-sm text-zinc-500">
-            Stack e ecossistema com que eu construo
+            {t('stackEcosystem')}
           </p>
           <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {STACK_LOGOS.map((name) => (
@@ -78,25 +89,25 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal id="servicos" variant="up" stagger={70}>
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading
-            label="O que fazemos"
-            title="Sites, agentes e automação de ponta a ponta"
-            description="Da landing que vende ao agente que atende — com engenharia séria, não só protótipo."
+            label={t('servicesLabel')}
+            title={t('servicesTitle')}
+            description={t('servicesDescription')}
           />
           <div data-reveal-child>
-            <ServicesGrid />
+            <ServicesGrid services={site.services} />
           </div>
           <p
             data-reveal-child
             className="mx-auto mt-10 max-w-2xl text-center text-sm text-zinc-500"
           >
-            Precisa de algo híbrido (ex.: site + bot no WhatsApp + painel)?{' '}
+            {t('servicesHybrid')}{' '}
             <Link
               href="/contato"
               className="font-medium text-violet-400 underline-offset-4 hover:text-violet-300 hover:underline"
             >
-              Fale comigo
+              {t('servicesHybridCta')}
             </Link>{' '}
-            e montamos o escopo.
+            {t('servicesHybridSuffix')}
           </p>
         </section>
       </ScrollReveal>
@@ -104,9 +115,9 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal variant="up" stagger={90}>
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading
-            label="Cases"
-            title="Do skill ao bot em produção"
-            description="Automação real, agentes e sistemas com loop — cada case com arquitetura e decisões."
+            label={t('casesLabel')}
+            title={t('casesTitle')}
+            description={t('casesDescription')}
           />
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {cases.map((c) => (
@@ -126,9 +137,9 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal variant="up">
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading
-            label="Método"
-            title="Do design aprovado à evidência de pronto"
-            description="O mesmo fluxo dos kits de agentes: brainstorm, plan, TDD e verify-done."
+            label={t('methodLabel')}
+            title={t('methodTitle')}
+            description={t('methodDescription')}
           />
           <MethodSteps steps={site.methodSteps} />
         </section>
@@ -137,9 +148,9 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal variant="up" stagger={80}>
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading
-            label="Open source"
-            title="Kits públicos no GitHub"
-            description="Skills, loops e quality gates — stats ao vivo do GitHub."
+            label={t('ossLabel')}
+            title={t('ossTitle')}
+            description={t('ossDescription')}
           />
           <div data-reveal-child>
             <OssList repos={site.ossRepos} />
@@ -150,9 +161,9 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal id="escopo" variant="up">
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading
-            label="Playground"
-            title="Monte um rascunho de escopo"
-            description="Escreva o que precisa. O site só sugere quando tem confiança — senão pede esclarecimento e nunca inventa produto."
+            label={t('scopeLabel')}
+            title={t('scopeTitle')}
+            description={t('scopeDescription')}
           />
           <ScopePlayground whatsappDigits={digits} />
         </section>
@@ -161,18 +172,18 @@ export default async function Home({ params }: HomePageProps) {
       <ScrollReveal id="faq" variant="up">
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading
-            label="FAQ"
-            title="Perguntas frequentes"
-            description="Respostas diretas sobre escopo, prazos, stack e como trabalhamos juntos."
+            label={t('faqLabel')}
+            title={t('faqTitle')}
+            description={t('faqDescription')}
           />
-          <FaqAccordion />
+          <FaqAccordion items={site.faqs} />
           <div className="glass-panel mx-auto mt-10 max-w-md rounded-2xl px-6 py-8 text-center">
-            <p className="text-sm font-medium text-white">Ainda tem dúvidas?</p>
+            <p className="text-sm font-medium text-white">{t('faqCtaTitle')}</p>
             <Link
               href="/contato"
               className="mt-4 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-zinc-200 transition-colors hover:border-violet-500/40 hover:text-white"
             >
-              Falar comigo
+              {t('faqCtaButton')}
             </Link>
           </div>
         </section>
@@ -185,20 +196,19 @@ export default async function Home({ params }: HomePageProps) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-violet-600/10 to-transparent"
           />
           <div className="glass-panel relative mx-auto max-w-3xl rounded-3xl px-8 py-14 text-center">
-            <p className="section-label mb-3">Contato</p>
+            <p className="section-label mb-3">{t('contactLabel')}</p>
             <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Fale comigo
+              {t('contactTitle')}
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-zinc-400 sm:text-base">
-              Automação, agentes e sistemas com loop em produção. Vamos
-              conversar.
+              {t('contactBody')}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/contato"
                 className="inline-flex items-center rounded-full bg-violet-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500"
               >
-                Falar comigo
+                {t('contactCta')}
               </Link>
               <a
                 href={site.github}
@@ -206,7 +216,7 @@ export default async function Home({ params }: HomePageProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-violet-500/40"
               >
-                GitHub
+                {tCommon('github')}
               </a>
             </div>
           </div>

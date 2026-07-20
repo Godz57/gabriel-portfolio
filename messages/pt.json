@@ -16,6 +16,8 @@
     "ariaMain": "Principal"
   },
   "Hero": {
+    "headline": "Sites, agentes e automações",
+    "headlineAccent": "do skill ao bot em produção",
     "viewCases": "Ver cases",
     "contact": "Fale comigo"
   },

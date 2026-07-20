@@ -1,10 +1,14 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 type HeroProps = {
   name: string
   tagline: string
   githubUrl: string
+  headline: string
+  headlineAccent: string
+  viewCasesLabel: string
+  githubLabel?: string
   imageSrc?: string
 }
 
@@ -12,6 +16,10 @@ export function Hero({
   name,
   tagline,
   githubUrl,
+  headline,
+  headlineAccent,
+  viewCasesLabel,
+  githubLabel = 'GitHub',
   imageSrc = '/gabriel-almeida.jpg',
 }: HeroProps) {
   return (
@@ -61,9 +69,9 @@ export function Hero({
         </p>
 
         <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-5xl sm:leading-[1.12] md:text-[3.25rem]">
-          Sites, agentes e automações
+          {headline}
           <span className="mt-1 block bg-gradient-to-b from-zinc-100 to-zinc-500 bg-clip-text text-transparent">
-            do skill ao bot em produção
+            {headlineAccent}
           </span>
         </h1>
 
@@ -76,7 +84,7 @@ export function Hero({
             href="/cases"
             className="inline-flex items-center rounded-full bg-violet-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500"
           >
-            Ver cases
+            {viewCasesLabel}
           </Link>
           <a
             href={githubUrl}
@@ -84,7 +92,7 @@ export function Hero({
             rel="noopener noreferrer"
             className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-violet-500/40 hover:text-white"
           >
-            GitHub
+            {githubLabel}
           </a>
         </div>
       </div>
