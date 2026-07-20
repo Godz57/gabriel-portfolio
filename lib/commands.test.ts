@@ -83,6 +83,63 @@ describe('parseCommandLine', () => {
       expect(action.lines.join(' ')).toMatch(/wpp-grok|persona/i)
     }
   })
+
+  it('unknown command in EN is English', () => {
+    const cmds = buildCommands(ctx, 'en')
+    const action = parseCommandLine('xyz', cmds, 'en')
+    expect(action.type).toBe('output')
+    if (action.type === 'output') {
+      expect(action.lines.join(' ')).toMatch(/unknown command/i)
+      expect(action.lines.join(' ')).not.toMatch(/desconhecido/i)
+    }
+  })
+
+  it('case not found in EN is English', () => {
+    const cmds = buildCommands(ctx, 'en')
+    const action = parseCommandLine('open missing-slug', cmds, 'en')
+    expect(action.type).toBe('output')
+    if (action.type === 'output') {
+      expect(action.lines[0]).toMatch(/case not found/i)
+      expect(action.lines.join(' ')).toMatch(/use:\s*cases/i)
+    }
+  })
+})
+
+describe('buildCommands locale', () => {
+  it('EN help description is English, not Portuguese Lista', () => {
+    const cmds = buildCommands(ctx, 'en')
+    const help = cmds.find((c) => c.id === 'help')
+    expect(help).toBeDefined()
+    expect(help!.description).toMatch(/list|command/i)
+    expect(help!.description).not.toMatch(/Lista/)
+  })
+
+  it('PT help description stays Portuguese', () => {
+    const cmds = buildCommands(ctx, 'pt')
+    const help = cmds.find((c) => c.id === 'help')
+    expect(help!.description).toMatch(/Lista/i)
+  })
+
+  it('EN empty cases line is English', () => {
+    const cmds = buildCommands({ ...ctx, caseSlugs: [] }, 'en')
+    const cases = cmds.find((c) => c.id === 'cases')
+    expect(cases?.action.type).toBe('output')
+    if (cases?.action.type === 'output') {
+      expect(cases.action.lines.join(' ')).toMatch(/\(no cases\)/i)
+      expect(cases.action.lines.join(' ')).not.toMatch(/nenhum/i)
+    }
+  })
+
+  it('navigate hrefs stay logical pathnames', () => {
+    const cmds = buildCommands(ctx, 'en')
+    const contato = cmds.find((c) => c.id === 'contato')
+    expect(contato?.action).toEqual({ type: 'navigate', href: '/contato' })
+    const open = cmds.find((c) => c.id === 'open-arc-web')
+    expect(open?.action).toEqual({
+      type: 'navigate',
+      href: '/cases/arc-web',
+    })
+  })
 })
 
 describe('filterCommands', () => {

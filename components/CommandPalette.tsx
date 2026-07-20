@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import {
   useCallback,
   useEffect,
@@ -9,6 +9,8 @@ import {
   useState,
   type KeyboardEvent,
 } from 'react'
+import { useRouter } from '@/i18n/navigation'
+import type { Locale } from '@/i18n/routing'
 import {
   buildCommands,
   filterCommands,
@@ -27,6 +29,8 @@ export function CommandPalette({
   whatsappDigits,
 }: CommandPaletteProps) {
   const router = useRouter()
+  const locale = useLocale() as Locale
+  const t = useTranslations('CommandPalette')
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
@@ -34,12 +38,15 @@ export function CommandPalette({
 
   const commands = useMemo(
     () =>
-      buildCommands({
-        caseSlugs,
-        githubUrl,
-        whatsappDigits,
-      }),
-    [caseSlugs, githubUrl, whatsappDigits],
+      buildCommands(
+        {
+          caseSlugs,
+          githubUrl,
+          whatsappDigits,
+        },
+        locale,
+      ),
+    [caseSlugs, githubUrl, whatsappDigits, locale],
   )
 
   const filtered = useMemo(
@@ -71,12 +78,21 @@ export function CommandPalette({
     setActive(0)
   }, [query])
 
+  const pushPath = useCallback(
+    (href: string) => {
+      // Dynamic case slugs and mixed pathnames are not all in the typed map.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      router.push(href as any)
+    },
+    [router],
+  )
+
   const run = useCallback(
     (cmd: SiteCommand) => {
       const { action } = cmd
       setOpen(false)
       if (action.type === 'navigate') {
-        router.push(action.href)
+        pushPath(action.href)
         return
       }
       if (action.type === 'external') {
@@ -86,13 +102,13 @@ export function CommandPalette({
       if (action.type === 'output') {
         // surface in alert is bad — scroll to terminal or toast; for palette output, navigate home with hash
         if (cmd.id === 'cases') {
-          router.push('/cases')
+          pushPath('/cases')
           return
         }
-        router.push('/#terminal')
+        pushPath('/#terminal')
       }
     },
-    [router],
+    [pushPath],
   )
 
   function onInputKey(e: KeyboardEvent<HTMLInputElement>) {
@@ -115,9 +131,9 @@ export function CommandPalette({
         type="button"
         onClick={() => setOpen(true)}
         className="fixed bottom-4 right-4 z-40 hidden items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/90 px-3 py-2 text-xs text-zinc-400 shadow-lg backdrop-blur sm:flex hover:border-violet-500/50 hover:text-violet-300"
-        aria-label="Abrir command palette"
+        aria-label={t('open')}
       >
-        <span>Buscar</span>
+        <span>{t('open')}</span>
         <kbd className="rounded border border-zinc-600 px-1.5 py-0.5 font-mono text-[10px]">
           Ctrl K
         </kbd>
@@ -130,7 +146,7 @@ export function CommandPalette({
       className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 px-4 pt-[12vh] backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
-      aria-label="Command palette"
+      aria-label={t('open')}
       onClick={() => setOpen(false)}
     >
       <div
@@ -143,15 +159,15 @@ export function CommandPalette({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onInputKey}
-            placeholder="Buscar cases, stack, github…"
+            placeholder={t('placeholder')}
             className="w-full bg-transparent py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-600"
-            aria-label="Filtrar comandos"
+            aria-label={t('filterAria')}
           />
         </div>
         <ul className="max-h-72 overflow-y-auto py-1" role="listbox">
           {filtered.length === 0 ? (
             <li className="px-4 py-6 text-center text-sm text-zinc-500">
-              Nenhum resultado
+              {t('empty')}
             </li>
           ) : (
             filtered.map((cmd, i) => (
@@ -174,7 +190,7 @@ export function CommandPalette({
           )}
         </ul>
         <div className="border-t border-zinc-800 px-4 py-2 text-[10px] text-zinc-600">
-          ↑↓ navegar · Enter abrir · Esc fechar
+          {t('hint')}
         </div>
       </div>
     </div>
