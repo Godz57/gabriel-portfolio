@@ -3,5 +3,91 @@
     "label": "Language",
     "pt": "PT",
     "en": "EN"
+  },
+  "Nav": {
+    "services": "Services",
+    "cases": "Cases",
+    "scope": "Scope",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "stack": "Stack",
+    "cta": "Get in touch",
+    "ariaHome": "ARC WEB — home",
+    "ariaMain": "Main"
+  },
+  "Hero": {
+    "viewCases": "View cases",
+    "contact": "Get in touch"
+  },
+  "Home": {
+    "stackEcosystem": "Stack and ecosystem I build with",
+    "servicesLabel": "What we do",
+    "servicesTitle": "Sites, agents, and end-to-end automation",
+    "servicesDescription": "From the landing that sells to the agent that answers — real engineering, not just a prototype.",
+    "servicesHybrid": "Need something hybrid (e.g. site + WhatsApp bot + dashboard)?",
+    "servicesHybridCta": "Get in touch",
+    "servicesHybridSuffix": "and we'll shape the scope.",
+    "casesLabel": "Cases",
+    "casesTitle": "From skill to production bot",
+    "casesDescription": "Real automation, agents, and loop-driven systems — each case with architecture and decisions.",
+    "methodLabel": "Method",
+    "methodTitle": "From approved design to done evidence",
+    "methodDescription": "The same agent-kit flow: brainstorm, plan, TDD, and verify-done.",
+    "ossLabel": "Open source",
+    "ossTitle": "Public kits on GitHub",
+    "ossDescription": "Skills, loops, and quality gates — live stats from GitHub.",
+    "scopeLabel": "Playground",
+    "scopeTitle": "Draft a scope sketch",
+    "scopeDescription": "Write what you need. The site only suggests when confident — otherwise it asks for clarity and never invents a product.",
+    "faqLabel": "FAQ",
+    "faqTitle": "Frequently asked questions",
+    "faqDescription": "Straight answers on scope, timelines, stack, and how we work together.",
+    "faqCtaTitle": "Still have questions?",
+    "faqCtaButton": "Talk to me",
+    "contactLabel": "Contact",
+    "contactTitle": "Get in touch",
+    "contactBody": "Automation, agents, and loop-driven systems in production. Let's talk.",
+    "contactCta": "Talk to me"
+  },
+  "Cases": {
+    "title": "Cases",
+    "intro": "Real automation, agents, and tooling projects — from the problem to a production loop, with stack, decisions, and constraints documented."
+  },
+  "Stack": {
+    "title": "Stack and method",
+    "intro": "Tools and process I use to ship automation, agents, and loop-driven systems — from approved design to done evidence.",
+    "mainTitle": "Core stack",
+    "methodTitle": "Method",
+    "methodIntro": "The same agent-kit flow: brainstorm → plan → TDD → verify-done."
+  },
+  "Contact": {
+    "title": "Contact",
+    "intro": "Freelance, full-time, or collab — automation, CLI/LLM agents, and loop-driven systems in production. If you're hiring, need a bot or commercial site, or want to contribute to OSS, let's talk."
+  },
+  "Footer": {
+    "blurb": "© {year} ARC WEB · sites, agents, and automation"
+  },
+  "Scope": {
+    "label": "Describe what you need — in your own words. If the site isn't sure, it won't invent scope: it asks for clarification and sends your original text on WhatsApp.",
+    "placeholder": "E.g.: I need a landing for my course and a WhatsApp bot to handle people who click the ad…",
+    "submit": "Suggest scope",
+    "confidence": "Confidence",
+    "confidenceHigh": "High",
+    "confidenceMedium": "Medium",
+    "confidenceLow": "Low",
+    "examplesHeading": "Examples",
+    "whatsappCta": "Continue on WhatsApp",
+    "clarifyingHeading": "We need to clarify"
+  },
+  "CommandPalette": {
+    "open": "Open command palette",
+    "placeholder": "Search cases, stack, github…",
+    "filterAria": "Filter commands",
+    "empty": "No commands",
+    "hint": "↑↓ navigate · Enter run · Esc close"
+  },
+  "Common": {
+    "github": "GitHub",
+    "whatsapp": "WhatsApp"
   }
 }

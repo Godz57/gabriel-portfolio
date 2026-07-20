@@ -3,5 +3,91 @@
     "label": "Idioma",
     "pt": "PT",
     "en": "EN"
+  },
+  "Nav": {
+    "services": "Serviços",
+    "cases": "Cases",
+    "scope": "Escopo",
+    "faq": "FAQ",
+    "contact": "Contato",
+    "stack": "Stack",
+    "cta": "Fale comigo",
+    "ariaHome": "ARC WEB — início",
+    "ariaMain": "Principal"
+  },
+  "Hero": {
+    "viewCases": "Ver cases",
+    "contact": "Fale comigo"
+  },
+  "Home": {
+    "stackEcosystem": "Stack e ecossistema com que eu construo",
+    "servicesLabel": "O que fazemos",
+    "servicesTitle": "Sites, agentes e automação de ponta a ponta",
+    "servicesDescription": "Da landing que vende ao agente que atende — com engenharia séria, não só protótipo.",
+    "servicesHybrid": "Precisa de algo híbrido (ex.: site + bot no WhatsApp + painel)?",
+    "servicesHybridCta": "Fale comigo",
+    "servicesHybridSuffix": "e montamos o escopo.",
+    "casesLabel": "Cases",
+    "casesTitle": "Do skill ao bot em produção",
+    "casesDescription": "Automação real, agentes e sistemas com loop — cada case com arquitetura e decisões.",
+    "methodLabel": "Método",
+    "methodTitle": "Do design aprovado à evidência de pronto",
+    "methodDescription": "O mesmo fluxo dos kits de agentes: brainstorm, plan, TDD e verify-done.",
+    "ossLabel": "Open source",
+    "ossTitle": "Kits públicos no GitHub",
+    "ossDescription": "Skills, loops e quality gates — stats ao vivo do GitHub.",
+    "scopeLabel": "Playground",
+    "scopeTitle": "Monte um rascunho de escopo",
+    "scopeDescription": "Escreva o que precisa. O site só sugere quando tem confiança — senão pede esclarecimento e nunca inventa produto.",
+    "faqLabel": "FAQ",
+    "faqTitle": "Perguntas frequentes",
+    "faqDescription": "Respostas diretas sobre escopo, prazos, stack e como trabalhamos juntos.",
+    "faqCtaTitle": "Ainda tem dúvidas?",
+    "faqCtaButton": "Falar comigo",
+    "contactLabel": "Contato",
+    "contactTitle": "Fale comigo",
+    "contactBody": "Automação, agentes e sistemas com loop em produção. Vamos conversar.",
+    "contactCta": "Falar comigo"
+  },
+  "Cases": {
+    "title": "Cases",
+    "intro": "Projetos reais de automação, agentes e tooling — do problema ao loop em produção, com stack, decisões e restrições documentadas."
+  },
+  "Stack": {
+    "title": "Stack e método",
+    "intro": "Ferramentas e processo que uso para entregar automação, agentes e sistemas com loop em produção — do design aprovado à evidência de pronto.",
+    "mainTitle": "Stack principal",
+    "methodTitle": "Método",
+    "methodIntro": "O mesmo fluxo dos kits de agentes: brainstorm → plan → TDD → verify-done."
+  },
+  "Contact": {
+    "title": "Contato",
+    "intro": "Freela, CLT ou collab — automação, agentes CLI/LLM e sistemas com loop em produção. Se você recruta, precisa de um bot ou site comercial, ou quer contribuir em OSS, vamos conversar."
+  },
+  "Footer": {
+    "blurb": "© {year} ARC WEB · sites, agentes e automação"
+  },
+  "Scope": {
+    "label": "Descreva o que você precisa — com suas palavras. Se o site não tiver certeza, ele não inventa escopo: pede esclarecimento e manda seu texto original no WhatsApp.",
+    "placeholder": "Ex.: Preciso de uma landing para meu curso e um bot no WhatsApp para atender quem clicar no anúncio…",
+    "submit": "Sugerir escopo",
+    "confidence": "Confiança",
+    "confidenceHigh": "Alta",
+    "confidenceMedium": "Média",
+    "confidenceLow": "Baixa",
+    "examplesHeading": "Exemplos",
+    "whatsappCta": "Continuar no WhatsApp",
+    "clarifyingHeading": "Precisamos esclarecer"
+  },
+  "CommandPalette": {
+    "open": "Abrir command palette",
+    "placeholder": "Buscar cases, stack, github…",
+    "filterAria": "Filtrar comandos",
+    "empty": "Nenhum comando",
+    "hint": "↑↓ navegar · Enter executar · Esc fechar"
+  },
+  "Common": {
+    "github": "GitHub",
+    "whatsapp": "WhatsApp"
   }
 }
