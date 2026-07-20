@@ -15,9 +15,10 @@ describe('ContactCtas', () => {
       'href',
       'https://github.com/Godz57',
     )
-    expect(
-      screen.getByRole('link', { name: /gabrieitous57@gmail\.com/i }),
-    ).toHaveAttribute('href', 'mailto:gabrieitous57@gmail.com')
+    expect(screen.getByRole('link', { name: /^email$/i })).toHaveAttribute(
+      'href',
+      'mailto:gabrieitous57@gmail.com',
+    )
     expect(
       screen.getByRole('link', { name: /whatsapp/i }).getAttribute('href'),
     ).toContain('wa.me/5561999999999')

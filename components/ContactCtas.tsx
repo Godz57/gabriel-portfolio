@@ -22,7 +22,7 @@ export function ContactCtas({ github, whatsapp, email }: ContactCtasProps) {
           href={`mailto:${email}`}
           className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-violet-500/40 hover:text-white"
         >
-          {email}
+          Email
         </a>
       ) : null}
       {digits ? (
