@@ -5,7 +5,7 @@ summary: Skills, loops, and quality gates that define how the agent actually wor
 audience: [recruiter, oss]
 stack: [TypeScript, Grok skills, CLI, TDD]
 repoUrl: https://github.com/Godz57/grok-superpowers
-order: 1
+order: 3
 ---
 
 ## Context & problem

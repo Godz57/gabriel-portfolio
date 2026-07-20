@@ -31,13 +31,24 @@ describe('getSiteConfig', () => {
 })
 
 describe('loadCases', () => {
-  it('loads 3 cases for pt and en with same slugs', () => {
+  it('loads cases for pt and en with same slugs', () => {
     const pt = loadCases('pt')
     const en = loadCases('en')
-    expect(pt).toHaveLength(3)
+    expect(pt.length).toBeGreaterThanOrEqual(4)
     expect(en.map((c) => c.slug)).toEqual(pt.map((c) => c.slug))
+    expect(pt.map((c) => c.slug)).toEqual(
+      expect.arrayContaining(['shelter', 'arc-web']),
+    )
     expect(en[0].title).not.toBe(pt[0].title)
     expect(en[0].body.length).toBeGreaterThan(20)
+  })
+
+  it('shelter and arc-web expose live demo URLs', () => {
+    const shelter = getCaseBySlug('shelter', 'en')
+    const arc = getCaseBySlug('arc-web', 'en')
+    expect(shelter?.demoUrl).toMatch(/shelter/i)
+    expect(shelter?.repoUrl).toMatch(/github\.com\/Godz57\/shelter/)
+    expect(arc?.demoUrl).toBe('https://arcweb.com.br')
   })
 
   it('each case has body and required frontmatter', () => {

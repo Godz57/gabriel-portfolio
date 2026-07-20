@@ -1,10 +1,11 @@
 ---
 slug: arc-web
-title: Commercial Next.js site with 3D and WhatsApp conversion
-summary: High-impact visual landing — Next, Three.js, and a direct WhatsApp CTA.
+title: ARC WEB — commercial Next.js site with 3D conversion
+summary: Premium ARC WEB landing — Next, Three.js/R3F, and WhatsApp CTA. Live at arcweb.com.br.
 audience: [freelance, recruiter]
 stack: [Next.js, TypeScript, Three.js, Tailwind CSS]
-order: 3
+demoUrl: https://arcweb.com.br
+order: 2
 ---
 
 ## Context & problem
@@ -42,5 +43,6 @@ Live site with strong visual identity, controlled 3D section, and a direct Whats
 
 ## Links
 
+- Live: https://arcweb.com.br
 - Stack: Next.js · Three.js · Tailwind · TypeScript
 - Conversion: WhatsApp deep link

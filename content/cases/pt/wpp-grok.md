@@ -4,7 +4,7 @@ title: Automação WhatsApp com Playwright e loop LLM
 summary: Bot de atendimento e qualificação em produção — browser automation + raciocínio LLM com guardrails.
 audience: [recruiter, freelance]
 stack: [TypeScript, Playwright, LLM, WhatsApp Web]
-order: 2
+order: 4
 ---
 
 ## Contexto e problema

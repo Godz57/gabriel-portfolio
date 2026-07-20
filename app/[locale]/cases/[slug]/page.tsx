@@ -61,16 +61,28 @@ export default async function CasePage({ params }: CasePageProps) {
               ))}
             </ul>
           ) : null}
-          {doc.repoUrl ? (
-            <p className="mt-6">
-              <a
-                href={doc.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-violet-400 underline underline-offset-4 hover:text-violet-300"
-              >
-                Ver repositório
-              </a>
+          {doc.demoUrl || doc.repoUrl ? (
+            <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
+              {doc.demoUrl ? (
+                <a
+                  href={doc.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-violet-400 underline underline-offset-4 hover:text-violet-300"
+                >
+                  {locale === 'en' ? 'Live site' : 'Site ao vivo'}
+                </a>
+              ) : null}
+              {doc.repoUrl ? (
+                <a
+                  href={doc.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-violet-400 underline underline-offset-4 hover:text-violet-300"
+                >
+                  {locale === 'en' ? 'Repository' : 'Repositório'}
+                </a>
+              ) : null}
             </p>
           ) : null}
         </header>
