@@ -1,12 +1,31 @@
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { MethodSteps } from '@/components/MethodSteps'
 import { ScrollReveal } from '@/components/ScrollReveal'
+import { isLocale } from '@/i18n/routing'
 import { getSiteConfig } from '@/lib/content'
 
-export const metadata: Metadata = {
-  title: 'Stack',
-  description:
-    'Método de trabalho e stack: TypeScript, Next.js, Playwright, Vitest e agents CLI/LLM.',
+type StackPageProps = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: StackPageProps): Promise<Metadata> {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  if (locale === 'en') {
+    return {
+      title: 'Stack',
+      description:
+        'Working method and stack: TypeScript, Next.js, Playwright, Vitest, and CLI/LLM agents.',
+    }
+  }
+  return {
+    title: 'Stack',
+    description:
+      'Método de trabalho e stack: TypeScript, Next.js, Playwright, Vitest e agents CLI/LLM.',
+  }
 }
 
 const stackItems = [
@@ -17,8 +36,12 @@ const stackItems = [
   'Agents CLI / LLM',
 ] as const
 
-export default function StackPage() {
-  const site = getSiteConfig()
+export default async function StackPage({ params }: StackPageProps) {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  setRequestLocale(locale)
+
+  const site = getSiteConfig(locale)
 
   return (
     <div>

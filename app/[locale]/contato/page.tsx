@@ -1,16 +1,39 @@
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { ContactCtas } from '@/components/ContactCtas'
 import { ScrollReveal } from '@/components/ScrollReveal'
+import { isLocale } from '@/i18n/routing'
 import { getSiteConfig } from '@/lib/content'
 
-export const metadata: Metadata = {
-  title: 'Contato',
-  description:
-    'Fale comigo: freela, CLT, collab OSS ou automação com agentes. GitHub e WhatsApp.',
+type ContatoPageProps = {
+  params: Promise<{ locale: string }>
 }
 
-export default function ContatoPage() {
-  const site = getSiteConfig()
+export async function generateMetadata({
+  params,
+}: ContatoPageProps): Promise<Metadata> {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  if (locale === 'en') {
+    return {
+      title: 'Contact',
+      description:
+        'Get in touch: freelance, full-time, OSS collab, or agent automation. GitHub and WhatsApp.',
+    }
+  }
+  return {
+    title: 'Contato',
+    description:
+      'Fale comigo: freela, CLT, collab OSS ou automação com agentes. GitHub e WhatsApp.',
+  }
+}
+
+export default async function ContatoPage({ params }: ContatoPageProps) {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  setRequestLocale(locale)
+
+  const site = getSiteConfig(locale)
 
   return (
     <ScrollReveal variant="up">

@@ -1,22 +1,27 @@
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { MarkdownBody } from '@/components/MarkdownBody'
 import { ScrollReveal } from '@/components/ScrollReveal'
+import { isLocale, locales } from '@/i18n/routing'
 import { getCaseBySlug, loadCases } from '@/lib/content'
 
 type CasePageProps = {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export function generateStaticParams() {
-  return loadCases().map((c) => ({ slug: c.slug }))
+  return locales.flatMap((locale) =>
+    loadCases(locale).map((c) => ({ locale, slug: c.slug })),
+  )
 }
 
 export async function generateMetadata({
   params,
 }: CasePageProps): Promise<Metadata> {
-  const { slug } = await params
-  const doc = getCaseBySlug(slug)
+  const { locale: raw, slug } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  const doc = getCaseBySlug(slug, locale)
   if (!doc) {
     return { title: 'Case' }
   }
@@ -27,8 +32,11 @@ export async function generateMetadata({
 }
 
 export default async function CasePage({ params }: CasePageProps) {
-  const { slug } = await params
-  const doc = getCaseBySlug(slug)
+  const { locale: raw, slug } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  setRequestLocale(locale)
+
+  const doc = getCaseBySlug(slug, locale)
   if (!doc) notFound()
 
   return (

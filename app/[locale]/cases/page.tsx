@@ -1,16 +1,39 @@
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { CaseCard } from '@/components/CaseCard'
 import { ScrollReveal } from '@/components/ScrollReveal'
+import { isLocale } from '@/i18n/routing'
 import { loadCases } from '@/lib/content'
 
-export const metadata: Metadata = {
-  title: 'Cases',
-  description:
-    'Cases de engenharia de agentes CLI/LLM, automação real e sistemas em produção.',
+type CasesPageProps = {
+  params: Promise<{ locale: string }>
 }
 
-export default function CasesPage() {
-  const cases = loadCases()
+export async function generateMetadata({
+  params,
+}: CasesPageProps): Promise<Metadata> {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  if (locale === 'en') {
+    return {
+      title: 'Cases',
+      description:
+        'CLI/LLM agent engineering cases, real automation, and systems in production.',
+    }
+  }
+  return {
+    title: 'Cases',
+    description:
+      'Cases de engenharia de agentes CLI/LLM, automação real e sistemas em produção.',
+  }
+}
+
+export default async function CasesPage({ params }: CasesPageProps) {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  setRequestLocale(locale)
+
+  const cases = loadCases(locale)
 
   return (
     <ScrollReveal variant="up" stagger={90}>

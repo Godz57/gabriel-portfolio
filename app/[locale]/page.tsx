@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { setRequestLocale } from 'next-intl/server'
 import { CaseCard } from '@/components/CaseCard'
 import { Hero } from '@/components/Hero'
 import { HomeProductDemo } from '@/components/HomeProductDemo'
@@ -10,6 +11,7 @@ import { ScopePlayground } from '@/components/ScopePlayground'
 import { ScrollReveal } from '@/components/ScrollReveal'
 import { SectionHeading } from '@/components/SectionHeading'
 import { ServicesGrid } from '@/components/ServicesGrid'
+import { isLocale } from '@/i18n/routing'
 import { getSiteConfig, loadCases } from '@/lib/content'
 
 const STACK_LOGOS = [
@@ -23,9 +25,17 @@ const STACK_LOGOS = [
   'Grok',
 ]
 
-export default function Home() {
-  const site = getSiteConfig()
-  const cases = loadCases()
+type HomePageProps = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function Home({ params }: HomePageProps) {
+  const { locale: raw } = await params
+  const locale = isLocale(raw) ? raw : 'pt'
+  setRequestLocale(locale)
+
+  const site = getSiteConfig(locale)
+  const cases = loadCases(locale)
   const digits = site.whatsapp?.replace(/\D/g, '') || undefined
 
   return (
