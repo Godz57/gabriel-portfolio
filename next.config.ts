@@ -1,5 +1,8 @@
 import path from 'node:path'
 import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
 
 const nextConfig: NextConfig = {
   // Avoid picking a parent lockfile (e.g. C:\Users\Gabriel\package-lock.json)
@@ -10,4 +13,4 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['react-markdown', 'remark-gfm'],
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)
