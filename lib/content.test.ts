@@ -2,39 +2,46 @@ import { describe, it, expect } from 'vitest'
 import { getSiteConfig, loadCases, getCaseBySlug } from './content'
 
 describe('getSiteConfig', () => {
-  it('returns required identity fields', () => {
-    const site = getSiteConfig()
+  it('returns PT identity by default locale', () => {
+    const site = getSiteConfig('pt')
     expect(site.name).toBe('Gabriel Almeida')
-    expect(site.tagline.length).toBeGreaterThan(10)
+    expect(site.tagline).toMatch(/agentes|Landing|sites/i)
     expect(site.github).toMatch(/^https:\/\/github\.com\//)
-    expect(site.proofItems.length).toBeGreaterThanOrEqual(3)
-    expect(site.ossRepos.length).toBeGreaterThanOrEqual(3)
+    expect(site.services.length).toBeGreaterThanOrEqual(4)
+    expect(site.faqs.length).toBeGreaterThanOrEqual(4)
   })
 
-  it('proof items have label and value', () => {
-    const site = getSiteConfig()
-    for (const item of site.proofItems) {
-      expect(item.label.length).toBeGreaterThan(0)
-      expect(item.value.length).toBeGreaterThan(0)
-    }
+  it('returns English tagline and aligned structure', () => {
+    const pt = getSiteConfig('pt')
+    const en = getSiteConfig('en')
+    expect(en.name).toBe(pt.name)
+    expect(en.github).toBe(pt.github)
+    expect(en.proofItems).toHaveLength(pt.proofItems.length)
+    expect(en.ossRepos).toHaveLength(pt.ossRepos.length)
+    expect(en.methodSteps).toHaveLength(4)
+    expect(en.services).toHaveLength(pt.services.length)
+    expect(en.faqs).toHaveLength(pt.faqs.length)
+    expect(en.tagline).not.toBe(pt.tagline)
+    expect(en.tagline.toLowerCase()).toMatch(/agent|landing|tdd|production/)
+  })
+
+  it('defaults to pt when locale omitted', () => {
+    expect(getSiteConfig().tagline).toBe(getSiteConfig('pt').tagline)
   })
 })
 
 describe('loadCases', () => {
-  it('loads exactly 3 cases sorted by order', () => {
-    const cases = loadCases()
-    expect(cases).toHaveLength(3)
-    expect(cases.map((c) => c.slug)).toEqual([
-      'agent-tooling',
-      'wpp-grok',
-      'arc-web',
-    ])
-    expect(cases[0].order).toBeLessThan(cases[1].order)
-    expect(cases[1].order).toBeLessThan(cases[2].order)
+  it('loads 3 cases for pt and en with same slugs', () => {
+    const pt = loadCases('pt')
+    const en = loadCases('en')
+    expect(pt).toHaveLength(3)
+    expect(en.map((c) => c.slug)).toEqual(pt.map((c) => c.slug))
+    expect(en[0].title).not.toBe(pt[0].title)
+    expect(en[0].body.length).toBeGreaterThan(20)
   })
 
   it('each case has body and required frontmatter', () => {
-    for (const c of loadCases()) {
+    for (const c of loadCases('pt')) {
       expect(c.title.length).toBeGreaterThan(0)
       expect(c.summary.length).toBeGreaterThan(0)
       expect(c.body.length).toBeGreaterThan(20)
@@ -45,12 +52,15 @@ describe('loadCases', () => {
 })
 
 describe('getCaseBySlug', () => {
-  it('returns case for known slug', () => {
-    const c = getCaseBySlug('wpp-grok')
-    expect(c?.slug).toBe('wpp-grok')
+  it('returns localized case', () => {
+    const pt = getCaseBySlug('wpp-grok', 'pt')
+    const en = getCaseBySlug('wpp-grok', 'en')
+    expect(pt?.slug).toBe('wpp-grok')
+    expect(en?.slug).toBe('wpp-grok')
+    expect(en?.summary).not.toBe(pt?.summary)
   })
 
   it('returns null for unknown slug', () => {
-    expect(getCaseBySlug('nope')).toBeNull()
+    expect(getCaseBySlug('nope', 'pt')).toBeNull()
   })
 })

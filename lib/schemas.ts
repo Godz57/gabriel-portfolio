@@ -28,6 +28,24 @@ export const siteConfigSchema = z.object({
       }),
     )
     .length(4),
+  services: z
+    .array(
+      z.object({
+        icon: z.string(),
+        title: z.string().min(1),
+        description: z.string().min(1),
+        tags: z.array(z.string()).optional(),
+      }),
+    )
+    .min(4),
+  faqs: z
+    .array(
+      z.object({
+        question: z.string().min(1),
+        answer: z.string().min(1),
+      }),
+    )
+    .min(4),
 })
 
 export type SiteConfig = z.infer<typeof siteConfigSchema>
