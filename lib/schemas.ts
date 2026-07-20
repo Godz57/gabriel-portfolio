@@ -56,6 +56,11 @@ export const caseFrontmatterSchema = z.object({
   summary: z.string().min(1),
   audience: z.array(z.enum(['recruiter', 'freelance', 'oss'])).min(1),
   stack: z.array(z.string().min(1)).min(1),
+  /** Public path under /public, e.g. /cases/shelter.png */
+  cover: z
+    .string()
+    .regex(/^\/[a-zA-Z0-9/_.-]+$/)
+    .optional(),
   repoUrl: z.string().url().optional(),
   demoUrl: z.string().url().optional(),
   order: z.number().int().positive(),

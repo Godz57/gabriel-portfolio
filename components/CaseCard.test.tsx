@@ -23,6 +23,13 @@ vi.mock('@/i18n/navigation', () => ({
   },
 }))
 
+vi.mock('next/image', () => ({
+  default: (props: { src: string; alt: string }) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={props.src} alt={props.alt} />
+  ),
+}))
+
 describe('CaseCard', () => {
   it('links to case page with title and summary', () => {
     render(
@@ -38,5 +45,18 @@ describe('CaseCard', () => {
     expect(
       screen.getByText(/loop real de atendimento/i),
     ).toBeInTheDocument()
+  })
+
+  it('renders cover image when provided', () => {
+    render(
+      <CaseCard
+        slug="shelter"
+        title="Shelter"
+        summary="Django catalog"
+        stack={['Django']}
+        cover="/cases/shelter.png"
+      />,
+    )
+    expect(document.querySelector('img[src="/cases/shelter.png"]')).toBeTruthy()
   })
 })

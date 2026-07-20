@@ -4,6 +4,7 @@ title: WhatsApp automation with Playwright and an LLM loop
 summary: Production support and qualification bot — browser automation + LLM reasoning with guardrails.
 audience: [recruiter, freelance]
 stack: [TypeScript, Playwright, LLM, WhatsApp Web]
+cover: /cases/wpp-grok.jpg
 order: 4
 ---
 

@@ -51,6 +51,12 @@ describe('loadCases', () => {
     expect(arc?.demoUrl).toBe('https://arcweb.com.br')
   })
 
+  it('every case has a cover under /cases/', () => {
+    for (const c of loadCases('pt')) {
+      expect(c.cover).toMatch(/^\/cases\//)
+    }
+  })
+
   it('each case has body and required frontmatter', () => {
     for (const c of loadCases('pt')) {
       expect(c.title.length).toBeGreaterThan(0)

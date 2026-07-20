@@ -5,6 +5,7 @@ summary: Premium ARC WEB landing — Next, Three.js/R3F, and WhatsApp CTA. Live 
 audience: [freelance, recruiter]
 stack: [Next.js, TypeScript, Three.js, Tailwind CSS]
 demoUrl: https://arcweb.com.br
+cover: /cases/arc-web.png
 order: 2
 ---
 

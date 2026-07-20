@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { MarkdownBody } from '@/components/MarkdownBody'
@@ -42,6 +43,18 @@ export default async function CasePage({ params }: CasePageProps) {
   return (
     <ScrollReveal variant="up">
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
+        {doc.cover ? (
+          <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950">
+            <Image
+              src={doc.cover}
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover object-top"
+            />
+          </div>
+        ) : null}
         <header>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
             {doc.title}

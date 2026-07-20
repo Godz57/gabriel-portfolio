@@ -6,6 +6,7 @@ audience: [recruiter, freelance]
 stack: [Python, Django, DRF, PostgreSQL, Vercel]
 repoUrl: https://github.com/Godz57/shelter
 demoUrl: https://shelter-phi.vercel.app
+cover: /cases/shelter.png
 order: 1
 ---
 

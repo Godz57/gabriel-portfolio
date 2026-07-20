@@ -53,6 +53,7 @@ export default async function CasesPage({ params }: CasesPageProps) {
                 title={c.title}
                 summary={c.summary}
                 stack={c.stack}
+                cover={c.cover}
               />
             </div>
           ))}

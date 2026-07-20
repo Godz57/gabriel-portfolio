@@ -127,6 +127,7 @@ export default async function Home({ params }: HomePageProps) {
                   title={c.title}
                   summary={c.summary}
                   stack={c.stack}
+                  cover={c.cover}
                 />
               </div>
             ))}
