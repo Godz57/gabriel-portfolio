@@ -104,5 +104,15 @@
   "Common": {
     "github": "GitHub",
     "whatsapp": "WhatsApp"
+  },
+  "ProductMockup": {
+    "agentTitle": "Agent · Rafael",
+    "chatAgent1": "oi! aqui é o Rafael, da ARC WEB. que tipo de site você tem em mente?",
+    "chatUser1": "Landing page com WhatsApp e portfolio.",
+    "chatAgent2": "perfeito. vou montar o fluxo: hero → cases → contato. ok?",
+    "statusLoop": "loop: humanize → send · TDD green",
+    "shellHint": "Digite help no shell · ou role até Escopo",
+    "footerBefore": "Workspace interativo — digite",
+    "footerAfter": "no shell ou"
   }
 }

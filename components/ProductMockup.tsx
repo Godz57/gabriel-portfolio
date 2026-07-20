@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState, type ReactNode } from 'react'
+import { useTranslations } from 'next-intl'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { BrowserChrome } from '@/components/BrowserChrome'
 import { prefersReducedMotion } from '@/lib/motion'
 
@@ -34,21 +35,6 @@ const CODE_LINES: { n: number; text: string; tone?: 'kw' | 'str' | 'cmt' | 'fn' 
     { n: 10, text: '}', tone: 'fn' },
   ]
 
-const CHAT: { role: 'agent' | 'user'; text: string }[] = [
-  {
-    role: 'agent',
-    text: 'oi! aqui é o Rafael, da ARC WEB. que tipo de site você tem em mente?',
-  },
-  {
-    role: 'user',
-    text: 'Landing page com WhatsApp e portfolio.',
-  },
-  {
-    role: 'agent',
-    text: 'perfeito. vou montar o fluxo: hero → cases → contato. ok?',
-  },
-]
-
 const PARTICLES = [
   { top: '12%', left: '18%', delay: '0s', size: 'h-1.5 w-1.5' },
   { top: '8%', left: '48%', delay: '0.4s', size: 'h-1 w-1' },
@@ -62,13 +48,24 @@ const PARTICLES = [
  * Codelab-style product window: live chat, code caret, particles + shell.
  */
 export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
+  const t = useTranslations('ProductMockup')
   const [chatCount, setChatCount] = useState(0)
   const [showStatus, setShowStatus] = useState(false)
   const [codeLines, setCodeLines] = useState(CODE_LINES.length)
 
+  const chat = useMemo(
+    () =>
+      [
+        { role: 'agent' as const, text: t('chatAgent1') },
+        { role: 'user' as const, text: t('chatUser1') },
+        { role: 'agent' as const, text: t('chatAgent2') },
+      ] as const,
+    [t],
+  )
+
   useEffect(() => {
     if (prefersReducedMotion()) {
-      setChatCount(CHAT.length)
+      setChatCount(chat.length)
       setShowStatus(true)
       setCodeLines(CODE_LINES.length)
       return
@@ -81,7 +78,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
     let cancelled = false
     const timers: ReturnType<typeof setTimeout>[] = []
 
-    CHAT.forEach((_, i) => {
+    chat.forEach((_, i) => {
       timers.push(
         setTimeout(() => {
           if (!cancelled) setChatCount(i + 1)
@@ -92,7 +89,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
     timers.push(
       setTimeout(() => {
         if (!cancelled) setShowStatus(true)
-      }, 500 + CHAT.length * 900 + 200),
+      }, 500 + chat.length * 900 + 200),
     )
 
     CODE_LINES.forEach((_, i) => {
@@ -107,7 +104,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
       cancelled = true
       timers.forEach(clearTimeout)
     }
-  }, [])
+  }, [chat])
 
   return (
     <section className="relative mx-auto max-w-6xl px-4 pb-8 sm:px-6 sm:pb-12">
@@ -156,12 +153,12 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
             {/* Chat — sequential reveal */}
             <aside className="hidden flex-col border-r border-white/5 bg-zinc-950/50 lg:col-span-3 lg:flex">
               <div className="border-b border-white/5 px-3 py-2 text-[11px] font-medium text-zinc-500">
-                Agent · Rafael
+                {t('agentTitle')}
               </div>
               <div className="flex flex-1 flex-col gap-3 overflow-hidden p-3 text-[12px] leading-relaxed">
-                {CHAT.slice(0, chatCount).map((m, i) => (
+                {chat.slice(0, chatCount).map((m, i) => (
                   <div
-                    key={i}
+                    key={`${m.role}-${i}-${m.text.slice(0, 12)}`}
                     className={
                       m.role === 'agent'
                         ? 'fade-slide-in max-w-[95%] self-start rounded-xl rounded-tl-sm border border-white/5 bg-zinc-900/80 px-3 py-2 text-zinc-300'
@@ -171,7 +168,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                     {m.text}
                   </div>
                 ))}
-                {chatCount < CHAT.length ? (
+                {chatCount < chat.length ? (
                   <div className="flex gap-1 self-start px-1 py-2">
                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-500 [animation-delay:0ms]" />
                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-500 [animation-delay:150ms]" />
@@ -181,7 +178,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                 {showStatus ? (
                   <div className="mt-auto flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-500/10 px-2 py-1.5 text-[10px] text-violet-300">
                     <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-violet-400" />
-                    loop: humanize → send · TDD green
+                    {t('statusLoop')}
                   </div>
                 ) : null}
               </div>
@@ -267,7 +264,7 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
                 +
               </span>
               <span className="min-w-0 flex-1 truncate text-sm text-zinc-500">
-                Digite help no shell · ou role até Escopo
+                {t('shellHint')}
               </span>
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white shadow-lg shadow-violet-600/40">
                 →
@@ -278,11 +275,11 @@ export function ProductMockup({ shell, onFocusShell }: ProductMockupProps) {
       </div>
 
       <p className="relative z-10 mt-4 text-center text-xs text-zinc-500">
-        Workspace interativo — digite{' '}
+        {t('footerBefore')}{' '}
         <kbd className="rounded border border-white/10 bg-zinc-900/80 px-1.5 py-0.5 font-mono text-zinc-400">
           help
         </kbd>{' '}
-        no shell ou{' '}
+        {t('footerAfter')}{' '}
         <kbd className="rounded border border-white/10 bg-zinc-900/80 px-1.5 py-0.5 font-mono text-zinc-400">
           Ctrl+K
         </kbd>

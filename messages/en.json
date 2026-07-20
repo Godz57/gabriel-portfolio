@@ -104,5 +104,15 @@
   "Common": {
     "github": "GitHub",
     "whatsapp": "WhatsApp"
+  },
+  "ProductMockup": {
+    "agentTitle": "Agent · Rafael",
+    "chatAgent1": "hey! this is Rafael from ARC WEB. what kind of site do you have in mind?",
+    "chatUser1": "Landing page with WhatsApp and portfolio.",
+    "chatAgent2": "perfect. I'll sketch the flow: hero → cases → contact. ok?",
+    "statusLoop": "loop: humanize → send · TDD green",
+    "shellHint": "Type help in the shell · or scroll to Scope",
+    "footerBefore": "Interactive workspace — type",
+    "footerAfter": "in the shell or"
   }
 }

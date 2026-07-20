@@ -15,4 +15,12 @@ describe('messages parity', () => {
   it('en has the same key tree as pt', () => {
     expect(keys(en).sort()).toEqual(keys(pt).sort())
   })
+
+  it('ProductMockup chat is localized in both locales', () => {
+    expect(pt.ProductMockup.chatAgent1).toMatch(/Rafael|ARC WEB/i)
+    expect(en.ProductMockup.chatAgent1).toMatch(/Rafael|ARC WEB/i)
+    expect(en.ProductMockup.chatAgent1).not.toBe(pt.ProductMockup.chatAgent1)
+    expect(en.ProductMockup.chatAgent1.toLowerCase()).toMatch(/hey|what kind|site/)
+    expect(en.ProductMockup.chatAgent2.toLowerCase()).toMatch(/perfect|flow|contact/)
+  })
 })
