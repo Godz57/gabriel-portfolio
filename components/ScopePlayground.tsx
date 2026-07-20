@@ -1,6 +1,9 @@
 'use client'
 
+import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useState, type FormEvent } from 'react'
+import { Link } from '@/i18n/navigation'
+import type { Locale } from '@/i18n/routing'
 import {
   buildWhatsAppScopeMessage,
   suggestScope,
@@ -12,17 +15,15 @@ type ScopePlaygroundProps = {
   whatsappDigits?: string
 }
 
-const EXAMPLES = [
-  'Landing page para captar lead de campanha no Instagram',
-  'Site institucional da minha clínica com WhatsApp',
-  'Bot no WhatsApp com IA para qualificar leads',
-  'Automação que lê planilha e atualiza o CRM',
-  'Agente de IA para triagem de suporte',
-]
-
-function ConfidenceBadge({ level }: { level: ScopeSuggestion['confidence'] }) {
-  const label =
-    level === 'high' ? 'Alta' : level === 'medium' ? 'Média' : 'Baixa'
+function ConfidenceBadge({
+  level,
+  confidenceLabel,
+  levelLabel,
+}: {
+  level: ScopeSuggestion['confidence']
+  confidenceLabel: string
+  levelLabel: string
+}) {
   const cls =
     level === 'high'
       ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
@@ -33,20 +34,33 @@ function ConfidenceBadge({ level }: { level: ScopeSuggestion['confidence'] }) {
     <span
       className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${cls}`}
     >
-      Confiança: {label}
+      {confidenceLabel}: {levelLabel}
     </span>
   )
 }
 
 export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
+  const locale = useLocale() as Locale
+  const t = useTranslations('Scope')
   const [text, setText] = useState('')
   const [result, setResult] = useState<ScopeSuggestion | null>(null)
   const [submitted, setSubmitted] = useState(false)
 
   const digits = whatsappDigits?.replace(/\D/g, '') || ''
 
+  const examples = useMemo(
+    () => [
+      t('example1'),
+      t('example2'),
+      t('example3'),
+      t('example4'),
+      t('example5'),
+    ],
+    [t],
+  )
+
   function run(raw: string) {
-    const suggestion = suggestScope(raw)
+    const suggestion = suggestScope(raw, locale)
     setResult(suggestion)
     setSubmitted(true)
   }
@@ -58,24 +72,41 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
 
   const waLink = useMemo(() => {
     if (!result || !digits) return null
-    return whatsappHref(digits, buildWhatsAppScopeMessage(result))
-  }, [result, digits])
+    return whatsappHref(digits, buildWhatsAppScopeMessage(result, locale))
+  }, [result, digits, locale])
+
+  const confidenceLevelLabel =
+    result?.confidence === 'high'
+      ? t('confidenceHigh')
+      : result?.confidence === 'medium'
+        ? t('confidenceMedium')
+        : t('confidenceLow')
+
+  // Split label to highlight "won't invent scope" / "não inventa escopo"
+  const fullLabel = t('label')
+  const noInvent = t('labelNoInvent')
+  const noInventIdx = fullLabel.indexOf(noInvent)
 
   return (
     <div className="glass-panel mx-auto max-w-3xl rounded-3xl p-6 sm:p-8">
       <form onSubmit={onSubmit} className="space-y-4">
         <label htmlFor="scope-input" className="block text-sm text-zinc-400">
-          Descreva o que você precisa — com suas palavras. Se o site não tiver
-          certeza, ele{' '}
-          <span className="text-violet-300">não inventa escopo</span>: pede
-          esclarecimento e manda seu texto original no WhatsApp.
+          {noInventIdx >= 0 ? (
+            <>
+              {fullLabel.slice(0, noInventIdx)}
+              <span className="text-violet-300">{noInvent}</span>
+              {fullLabel.slice(noInventIdx + noInvent.length)}
+            </>
+          ) : (
+            fullLabel
+          )}
         </label>
         <textarea
           id="scope-input"
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={4}
-          placeholder="Ex.: Preciso de uma landing para meu curso e um bot no WhatsApp para atender quem clicar no anúncio…"
+          placeholder={t('placeholder')}
           className="w-full resize-y rounded-2xl border border-white/10 bg-zinc-950/80 px-4 py-3 text-sm text-zinc-100 outline-none ring-violet-500/0 transition placeholder:text-zinc-600 focus:border-violet-500/40 focus:ring-2 focus:ring-violet-500/20"
         />
         <div className="flex flex-wrap items-center gap-3">
@@ -83,7 +114,7 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
             type="submit"
             className="inline-flex items-center rounded-full bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500"
           >
-            Gerar escopo
+            {t('submit')}
           </button>
           {submitted && result ? (
             <button
@@ -95,7 +126,7 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
               }}
               className="text-sm text-zinc-500 hover:text-zinc-300"
             >
-              Limpar
+              {t('clear')}
             </button>
           ) : null}
         </div>
@@ -103,10 +134,10 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
 
       <div className="mt-4">
         <p className="mb-2 text-[11px] uppercase tracking-wide text-zinc-600">
-          Exemplos (clique para preencher)
+          {t('examplesHeading')}
         </p>
         <ul className="flex flex-wrap gap-2">
-          {EXAMPLES.map((ex) => (
+          {examples.map((ex) => (
             <li key={ex}>
               <button
                 type="button"
@@ -127,7 +158,11 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
         <div className="mt-8 space-y-5 border-t border-white/10 pt-8">
           <div className="flex flex-wrap items-center gap-3">
             <h3 className="text-lg font-semibold text-white">{result.title}</h3>
-            <ConfidenceBadge level={result.confidence} />
+            <ConfidenceBadge
+              level={result.confidence}
+              confidenceLabel={t('confidence')}
+              levelLabel={confidenceLevelLabel}
+            />
           </div>
           <p className="text-sm leading-relaxed text-zinc-400">
             {result.summary}
@@ -151,7 +186,7 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
           {result.deliverables.length > 0 ? (
             <div>
               <h4 className="mb-2 text-sm font-medium text-zinc-200">
-                Entregáveis (rascunho)
+                {t('deliverablesHeading')}
               </h4>
               <ul className="list-inside list-disc space-y-1.5 text-sm text-zinc-400">
                 {result.deliverables.map((d) => (
@@ -164,7 +199,7 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
           {result.stack.length > 0 ? (
             <div>
               <h4 className="mb-2 text-sm font-medium text-zinc-200">
-                Stack provável
+                {t('stackHeading')}
               </h4>
               <p className="text-sm text-zinc-400">{result.stack.join(' · ')}</p>
             </div>
@@ -174,8 +209,8 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
             <div>
               <h4 className="mb-2 text-sm font-medium text-zinc-200">
                 {result.confidence === 'low'
-                  ? 'Perguntas para não chutar o escopo'
-                  : 'Para fechar o escopo'}
+                  ? t('clarifyingHeading')
+                  : t('closingHeading')}
               </h4>
               <ul className="list-inside list-disc space-y-1.5 text-sm text-zinc-400">
                 {result.clarifyingQuestions.map((q) => (
@@ -186,8 +221,10 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
           ) : null}
 
           <div className="rounded-2xl border border-white/10 bg-zinc-950/60 p-4">
-            <p className="text-xs text-zinc-500">Seu texto (vai no WhatsApp)</p>
-            <p className="mt-1 text-sm text-zinc-300">&ldquo;{result.userText}&rdquo;</p>
+            <p className="text-xs text-zinc-500">{t('userTextHeading')}</p>
+            <p className="mt-1 text-sm text-zinc-300">
+              &ldquo;{result.userText}&rdquo;
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -198,20 +235,17 @@ export function ScopePlayground({ whatsappDigits }: ScopePlaygroundProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center rounded-full bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500"
               >
-                Continuar no WhatsApp
+                {t('whatsappCta')}
               </a>
             ) : (
-              <p className="text-sm text-zinc-500">
-                WhatsApp não configurado neste ambiente — copie o texto e me
-                chame pelo contato.
-              </p>
+              <p className="text-sm text-zinc-500">{t('whatsappMissing')}</p>
             )}
-            <a
+            <Link
               href="/contato"
               className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm text-zinc-200 transition-colors hover:border-violet-500/40"
             >
-              Página de contato
-            </a>
+              {t('contactPage')}
+            </Link>
           </div>
         </div>
       ) : null}

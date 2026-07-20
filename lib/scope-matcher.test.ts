@@ -96,6 +96,37 @@ describe('suggestScope', () => {
     expect(msg).toContain(text)
     expect(msg).toMatch(/portfólio|portfolio|Gabriel/i)
   })
+
+  it('returns English labels when locale is en', () => {
+    const s = suggestScope(
+      'I need a landing page to capture leads from ads',
+      'en',
+    )
+    expect(s.matches[0]?.id).toBe('landing')
+    // label or title should be English-ish
+    expect(s.title.toLowerCase()).not.toMatch(/landing focada|preciso de/i)
+    // confidence note / summary in EN
+    expect(s.confidenceNote.toLowerCase()).toMatch(
+      /confidence|match|suggest|scope|draft/i,
+    )
+  })
+
+  it('PT default still works for classic PT input', () => {
+    const s = suggestScope('preciso de uma landing page para captar lead')
+    expect(s.confidence).not.toBe('low')
+    expect(s.matches[0]?.id).toBe('landing')
+  })
+
+  it('builds English WhatsApp template when locale is en', () => {
+    const s = suggestScope(
+      'I need a landing page to capture leads from ads',
+      'en',
+    )
+    const msg = buildWhatsAppScopeMessage(s, 'en')
+    expect(msg).toMatch(/Hello|Hi|portfolio|Gabriel/i)
+    expect(msg).not.toMatch(/^Olá!/m)
+    expect(msg).toContain(s.userText)
+  })
 })
 
 describe('whatsappHref', () => {

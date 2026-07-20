@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
 import {
   useCallback,
   useEffect,
@@ -12,6 +12,8 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from 'react'
+import { useRouter } from '@/i18n/navigation'
+import type { Locale } from '@/i18n/routing'
 import {
   buildCommands,
   parseCommandLine,
@@ -50,6 +52,7 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
     ref,
   ) {
     const router = useRouter()
+    const locale = useLocale() as Locale
     const inputRef = useRef<HTMLInputElement>(null)
     const scrollerRef = useRef<HTMLDivElement>(null)
     const [lines, setLines] = useState<Line[]>([])
@@ -64,12 +67,15 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
 
     const commands = useMemo(
       () =>
-        buildCommands({
-          caseSlugs,
-          githubUrl,
-          whatsappDigits,
-        }),
-      [caseSlugs, githubUrl, whatsappDigits],
+        buildCommands(
+          {
+            caseSlugs,
+            githubUrl,
+            whatsappDigits,
+          },
+          locale,
+        ),
+      [caseSlugs, githubUrl, whatsappDigits, locale],
     )
 
     useEffect(() => {
@@ -113,6 +119,15 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
       scrollerRef.current?.scrollTo({ top: scrollerRef.current.scrollHeight })
     }, [lines])
 
+    const pushPath = useCallback(
+      (href: string) => {
+        // Dynamic case slugs and mixed pathnames are not all in the typed map.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        router.push(href as any)
+      },
+      [router],
+    )
+
     const runAction = useCallback(
       (action: CommandAction) => {
         switch (action.type) {
@@ -120,7 +135,7 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
             setLines([])
             return
           case 'navigate':
-            router.push(action.href)
+            pushPath(action.href)
             return
           case 'external':
             window.open(action.href, '_blank', 'noopener,noreferrer')
@@ -133,7 +148,7 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
             return
         }
       },
-      [router],
+      [pushPath],
     )
 
     const submit = useCallback(
@@ -143,11 +158,11 @@ export const TerminalHero = forwardRef<TerminalHeroHandle, TerminalHeroProps>(
         setLines((prev) => [...prev, { kind: 'input', text: trimmed }])
         setHistory((h) => [trimmed, ...h].slice(0, 50))
         setHistIdx(-1)
-        const action = parseCommandLine(trimmed, commands)
+        const action = parseCommandLine(trimmed, commands, locale)
         runAction(action)
         setValue('')
       },
-      [commands, runAction],
+      [commands, runAction, locale],
     )
 
     function onSubmit(e: FormEvent) {
