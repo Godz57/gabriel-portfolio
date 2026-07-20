@@ -43,7 +43,7 @@ type LanguageAlternatesHref =
  * Mirrors next-intl `localePrefix: 'as-needed'` + `pathnames` map so unit tests
  * work in Vitest without next/navigation.
  */
-function localizedPath(
+export function getLocalizedPath(
   locale: Locale,
   pathname: AppPathname,
   params?: { slug?: string },
@@ -89,8 +89,8 @@ export function getLanguageAlternates(
   const base = getSiteUrl().replace(/\/$/, '')
   const { pathname, params } = normalizeHref(href)
 
-  const ptPath = localizedPath('pt', pathname, params)
-  const enPath = localizedPath('en', pathname, params)
+  const ptPath = getLocalizedPath('pt', pathname, params)
+  const enPath = getLocalizedPath('en', pathname, params)
 
   const abs = (path: string) => {
     if (path === '/' || path === '') return `${base}/`

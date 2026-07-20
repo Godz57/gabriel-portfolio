@@ -1,20 +1,34 @@
 import type { MetadataRoute } from 'next'
+import { locales } from '@/i18n/routing'
 import { loadCases } from '@/lib/content'
+import {
+  getSiteUrl,
+  getLocalizedPath,
+  type AppPathname,
+} from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+  const base = getSiteUrl().replace(/\/$/, '')
+  const entries: MetadataRoute.Sitemap = []
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${base}/`, lastModified: new Date() },
-    { url: `${base}/cases`, lastModified: new Date() },
-    { url: `${base}/stack`, lastModified: new Date() },
-    { url: `${base}/contato`, lastModified: new Date() },
-  ]
+  const staticPaths: AppPathname[] = ['/', '/cases', '/stack', '/contato']
 
-  const caseRoutes: MetadataRoute.Sitemap = loadCases().map((c) => ({
-    url: `${base}/cases/${c.slug}`,
-    lastModified: new Date(),
-  }))
+  for (const locale of locales) {
+    for (const pathname of staticPaths) {
+      const path = getLocalizedPath(locale, pathname)
+      entries.push({
+        url: path === '/' ? `${base}/` : `${base}${path}`,
+        lastModified: new Date(),
+      })
+    }
+    for (const c of loadCases(locale)) {
+      const path = getLocalizedPath(locale, '/cases/[slug]', { slug: c.slug })
+      entries.push({
+        url: `${base}${path}`,
+        lastModified: new Date(),
+      })
+    }
+  }
 
-  return [...staticRoutes, ...caseRoutes]
+  return entries
 }

@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import {
   getLanguageAlternates,
+  getLocalizedPath,
   getSeoCopy,
   getSiteUrl,
   htmlLang,
@@ -66,5 +67,18 @@ describe('seo helpers', () => {
 
     expect(alt['pt-BR']).toBe('https://example.com/stack')
     expect(alt.en).toBe('https://example.com/en/stack')
+  })
+
+  it('getLocalizedPath builds as-needed prefixes and contact alias', () => {
+    expect(getLocalizedPath('pt', '/')).toBe('/')
+    expect(getLocalizedPath('en', '/')).toBe('/en')
+    expect(getLocalizedPath('pt', '/contato')).toBe('/contato')
+    expect(getLocalizedPath('en', '/contato')).toBe('/en/contact')
+    expect(getLocalizedPath('pt', '/cases/[slug]', { slug: 'arc-web' })).toBe(
+      '/cases/arc-web',
+    )
+    expect(getLocalizedPath('en', '/cases/[slug]', { slug: 'arc-web' })).toBe(
+      '/en/cases/arc-web',
+    )
   })
 })
