@@ -7,7 +7,7 @@ export const siteConfig = {
   github: 'https://github.com/Godz57',
   linkedin: undefined,
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP,
-  email: undefined,
+  email: 'gabrieitous57@gmail.com',
   proofItems: [
     { label: 'Public agent tooling kits', value: '7+' },
     { label: 'Real production automation', value: 'WhatsApp + LLM' },

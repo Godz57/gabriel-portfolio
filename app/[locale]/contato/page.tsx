@@ -46,7 +46,11 @@ export default async function ContatoPage({ params }: ContatoPageProps) {
           {t('intro')}
         </p>
         <div className="mt-10">
-          <ContactCtas github={site.github} whatsapp={site.whatsapp} />
+          <ContactCtas
+            github={site.github}
+            whatsapp={site.whatsapp}
+            email={site.email}
+          />
         </div>
       </section>
     </ScrollReveal>
