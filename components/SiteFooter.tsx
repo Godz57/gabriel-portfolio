@@ -1,11 +1,15 @@
-import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import { ArcLogo } from '@/components/ArcLogo'
+import { Link } from '@/i18n/navigation'
 
 type SiteFooterProps = {
   githubUrl: string
 }
 
-export function SiteFooter({ githubUrl }: SiteFooterProps) {
+export async function SiteFooter({ githubUrl }: SiteFooterProps) {
+  const t = await getTranslations('Footer')
+  const tNav = await getTranslations('Nav')
+  const tCommon = await getTranslations('Common')
   const year = new Date().getFullYear()
 
   return (
@@ -15,32 +19,30 @@ export function SiteFooter({ githubUrl }: SiteFooterProps) {
           <Link
             href="/"
             className="group inline-flex"
-            aria-label="ARC WEB — início"
+            aria-label={tNav('ariaHome')}
           >
             <ArcLogo variant="mark" size={28} />
           </Link>
-          <p className="mt-3 text-sm text-zinc-500">
-            © {year} ARC WEB · sites, agentes e automação
-          </p>
+          <p className="mt-3 text-sm text-zinc-500">{t('blurb', { year })}</p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400">
-          <Link href="/#servicos" className="hover:text-violet-400">
-            Serviços
+          <Link href={'/#servicos' as '/'} className="hover:text-violet-400">
+            {tNav('services')}
           </Link>
           <Link href="/cases" className="hover:text-violet-400">
-            Cases
+            {tNav('cases')}
           </Link>
-          <Link href="/#escopo" className="hover:text-violet-400">
-            Escopo
+          <Link href={'/#escopo' as '/'} className="hover:text-violet-400">
+            {tNav('scope')}
           </Link>
-          <Link href="/#faq" className="hover:text-violet-400">
-            FAQ
+          <Link href={'/#faq' as '/'} className="hover:text-violet-400">
+            {tNav('faq')}
           </Link>
           <Link href="/stack" className="hover:text-violet-400">
-            Stack
+            {tNav('stack')}
           </Link>
           <Link href="/contato" className="hover:text-violet-400">
-            Contato
+            {tNav('contact')}
           </Link>
           <a
             href={githubUrl}
@@ -48,7 +50,7 @@ export function SiteFooter({ githubUrl }: SiteFooterProps) {
             rel="noopener noreferrer"
             className="hover:text-violet-400"
           >
-            GitHub
+            {tCommon('github')}
           </a>
         </div>
       </div>

@@ -1,20 +1,38 @@
 import { render, screen } from '@testing-library/react'
+import { NextIntlClientProvider } from 'next-intl'
 import { describe, it, expect, vi } from 'vitest'
 import { SiteHeader } from './SiteHeader'
 
-vi.mock('next/link', () => ({
-  default: ({
-    children,
+const messages = {
+  LocaleSwitcher: { label: 'Idioma', pt: 'PT', en: 'EN' },
+  Nav: {
+    services: 'Serviços',
+    cases: 'Cases',
+    scope: 'Escopo',
+    faq: 'FAQ',
+    contact: 'Contato',
+    stack: 'Stack',
+    cta: 'Fale comigo',
+    ariaHome: 'ARC WEB — início',
+    ariaMain: 'Principal',
+  },
+}
+
+vi.mock('@/i18n/navigation', () => ({
+  Link: ({
     href,
+    children,
     ...props
   }: {
-    children: React.ReactNode
     href: string
+    children: React.ReactNode
   }) => (
-    <a href={href} {...props}>
+    <a href={typeof href === 'string' ? href : '#'} {...props}>
       {children}
     </a>
   ),
+  usePathname: () => '/',
+  useRouter: () => ({ replace: vi.fn() }),
 }))
 
 vi.mock('next/image', () => ({
@@ -31,9 +49,17 @@ vi.mock('next/image', () => ({
   ),
 }))
 
+function renderHeader() {
+  return render(
+    <NextIntlClientProvider locale="pt" messages={messages}>
+      <SiteHeader />
+    </NextIntlClientProvider>,
+  )
+}
+
 describe('SiteHeader', () => {
-  it('shows ARC WEB logo home link and main sections', () => {
-    render(<SiteHeader />)
+  it('shows ARC WEB logo home link, main sections, CTA and locale switcher', () => {
+    renderHeader()
     expect(
       screen.getByRole('link', { name: /arc web|início/i }),
     ).toHaveAttribute('href', '/')
@@ -56,6 +82,19 @@ describe('SiteHeader', () => {
     expect(screen.getByRole('link', { name: /^contato$/i })).toHaveAttribute(
       'href',
       '/contato',
+    )
+    expect(screen.getByRole('link', { name: /fale comigo/i })).toHaveAttribute(
+      'href',
+      '/contato',
+    )
+    expect(screen.getByRole('group', { name: /idioma/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^pt$/i })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    expect(screen.getByRole('button', { name: /^en$/i })).toHaveAttribute(
+      'aria-pressed',
+      'false',
     )
   })
 })
